@@ -14,19 +14,19 @@
         .heart { position: fixed; top: -10%; color: rgba(255, 105, 180, 0.6); animation: fall linear infinite; z-index: 0; pointer-events: none; }
         @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
 
-        /* Neon Text for Attachment 1 */
+        /* Neon Text for Opening */
         .neon-glow { text-shadow: 0 0 15px #ff1493, 0 0 30px #ff69b4; color: #ff1493; }
 
-        /* The Sliding Engine */
+        /* Sliding Engine */
         .slider-viewport { width: 100%; max-width: 350px; overflow: hidden; border-radius: 2.5rem; background: white; box-shadow: 0 25px 50px rgba(0,0,0,0.1); border: 4px solid white; }
         .slider-track { display: flex; width: 300%; transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1); }
         .slide-unit { width: 33.333%; padding: 2.5rem; text-align: center; flex-shrink: 0; }
 
-        /* Hanging Flags - Attachment 4 Style */
+        /* Hanging Flags */
         .flag { display: inline-block; animation: sway 3s ease-in-out infinite alternate; transform-origin: top; background: #f02e65; color: white; padding: 6px 10px; border-radius: 0 0 8px 8px; margin: 2px; font-weight: bold; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
         @keyframes sway { from { transform: rotate(-5deg); } to { transform: rotate(5deg); } }
 
-        /* Improved CSS Cake */
+        /* CSS Cake */
         .cake { position: relative; width: 160px; height: 120px; margin: 0 auto; transform: translateY(100px); opacity: 0; transition: all 1s ease; }
         .cake.show { transform: translateY(0); opacity: 1; }
         .cake-layer { position: absolute; width: 100%; border-radius: 10px; border-bottom: 4px solid rgba(0,0,0,0.1); }
@@ -53,14 +53,11 @@
         
         <div id="stage-start" class="text-center space-y-8 animate__animated animate__fadeIn">
             <div class="space-y-1">
-                <h1 class="text-2xl font-bold text-gray-800">Happy Birthday <span class="text-pink-600">[Name]</span> 🎂</h1>
-                <p class="text-gray-500 text-sm italic">"Your unique personalized subtitle here"</p>
+                <h1 class="text-2xl font-bold text-gray-800">Happy Birthday <span class="text-pink-600">Madam Jii</span> 🎂</h1>
+                <p class="text-gray-500 text-sm italic">"Every moment with you is a gift."</p>
             </div>
             <h2 class="text-6xl font-bold neon-glow animate__animated animate__pulse animate__infinite">It's Your Birthday!</h2>
-            <div class="space-y-4">
-                <p class="text-pink-600 font-bold uppercase tracking-widest text-xs">A special surprise awaits you</p>
-                <button onclick="toOnboarding()" class="bg-[#f02e65] text-white px-12 py-4 rounded-full text-xl font-bold shadow-2xl transform transition active:scale-95">🎀 Let's Celebrate</button>
-            </div>
+            <button onclick="toOnboarding()" class="bg-[#f02e65] text-white px-12 py-4 rounded-full text-xl font-bold shadow-2xl mt-8">🎀 Let's Celebrate</button>
         </div>
 
         <div id="stage-onboarding" class="hidden animate__animated animate__zoomIn">
@@ -86,9 +83,9 @@
                     </div>
                 </div>
                 <div class="flex justify-center gap-2 pb-6">
-                    <div id="dot0" class="w-2 h-2 rounded-full bg-pink-500 transition-all"></div>
-                    <div id="dot1" class="w-2 h-2 rounded-full bg-gray-200 transition-all"></div>
-                    <div id="dot2" class="w-2 h-2 rounded-full bg-gray-200 transition-all"></div>
+                    <div id="dot0" class="w-2 h-2 rounded-full bg-pink-500"></div>
+                    <div id="dot1" class="w-2 h-2 rounded-full bg-gray-200"></div>
+                    <div id="dot2" class="w-2 h-2 rounded-full bg-gray-200"></div>
                 </div>
             </div>
         </div>
@@ -96,11 +93,8 @@
         <div id="stage-party" class="hidden w-full flex flex-col items-center">
             <h2 id="party-title" class="text-3xl font-bold text-pink-600 mb-6 transition-colors">Let's Celebrate! 🥳</h2>
             <div id="light-row" class="flex gap-2 h-6 mb-12"></div>
-            
             <button id="partyBtn" onclick="advanceParty()" class="bg-yellow-400 text-gray-900 px-10 py-3 rounded-full font-bold shadow-xl z-50">💡 Turn On the Lights</button>
-
             <div id="banner-area" class="mt-12 flex flex-wrap justify-center gap-1"></div>
-
             <div id="cake" class="cake mt-12">
                 <div class="candle"><div class="flame"></div></div>
                 <div class="cake-layer base"></div>
@@ -112,37 +106,47 @@
         <div id="stage-letter" class="hidden w-full max-w-sm flex flex-col items-center animate__animated animate__fadeIn">
             <h2 class="text-2xl font-bold text-pink-600 mb-6">💌 A Message From My Heart</h2>
             <div class="relative w-full h-96 bg-white rounded-[2.5rem] shadow-2xl overflow-hidden border-4 border-white">
-                <div id="curt-l" class="curtain absolute inset-y-0 left-0 w-1/2 flex items-center justify-end"><div class="w-1 h-full bg-yellow-500/30"></div></div>
-                <div id="curt-r" class="curtain absolute inset-y-0 right-0 w-1/2 flex items-center justify-start"><div class="w-1 h-full bg-yellow-500/30"></div></div>
+                <div id="curt-l" class="curtain absolute inset-y-0 left-0 w-1/2"></div>
+                <div id="curt-r" class="curtain absolute inset-y-0 right-0 w-1/2"></div>
                 <div class="p-8 h-full overflow-y-auto text-gray-700 italic text-sm leading-relaxed">
                     <p class="font-bold text-pink-600 text-lg mb-4">Dearest Madam Jiii,</p>
-                    <p>Enter your deep, heartfelt message here. This is her moment to feel how much you care.</p>
+                    <p>I wanted to take a moment to tell you how incredibly special you are to me. On this day, the world got a little brighter, and my life got a lot more beautiful...</p>
                     <p class="mt-8 font-bold text-right text-pink-500">— [Your Name]</p>
                 </div>
             </div>
             <button id="openBtn" onclick="openCurtains()" class="mt-4 text-pink-500 font-bold animate-bounce underline">✨ Click to Open ✨</button>
-            <button id="memBtn" onclick="toMemories()" class="hidden mt-10 bg-[#f02e65] text-white px-10 py-3 rounded-full font-bold shadow-lg animate__animated animate__fadeIn">📷 View Our Memories</button>
+            <button id="memBtn" onclick="toMemories()" class="hidden mt-10 bg-[#f02e65] text-white px-10 py-3 rounded-full font-bold shadow-lg">📷 View Our Memories</button>
         </div>
 
-        <div id="stage-memories" class="hidden w-full max-w-4xl flex flex-col items-center space-y-12 animate__animated animate__fadeInRight">
+        <div id="stage-memories" class="hidden w-full max-w-4xl flex flex-col items-center space-y-12 animate__animated animate__fadeInRight pb-20">
             <h2 class="text-4xl font-bold text-pink-600 italic">📷 Our Beautiful Memories</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 w-full px-4">
-                <div class="bg-white p-3 shadow-xl transform rotate-2"><img src="photo1.jpg" class="rounded w-full h-64 object-cover"></div>
-                <div class="bg-white p-3 shadow-xl transform -rotate-3"><img src="photo2.jpg" class="rounded w-full h-64 object-cover"></div>
-                <div class="bg-white p-3 shadow-xl transform rotate-1"><img src="photo3.jpg" class="rounded w-full h-64 object-cover"></div>
+            
+            <div class="w-full max-w-2xl px-4">
+                <div class="bg-white p-4 shadow-2xl rounded-3xl transform rotate-1">
+                    <video id="memoryVideo" controls class="w-full rounded-2xl shadow-inner">
+                        <source src="birthday_video.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <p class="text-center mt-3 text-gray-500 italic">Play our moment ✨</p>
+                </div>
             </div>
-            <div class="text-center py-20 space-y-4">
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 w-full px-4">
+                <div class="bg-white p-3 shadow-xl transform rotate-2"><img src="https://i.postimg.cc/mPyJpC0R/Photo1.jpg" class="rounded w-full h-64 object-cover"></div>
+                <div class="bg-white p-3 shadow-xl transform -rotate-3"><img src="https://i.postimg.cc/jD4m3PGT/Photo2.jpg" class="rounded w-full h-64 object-cover"></div>
+                <div class="bg-white p-3 shadow-xl transform rotate-1"><img src="https://i.postimg.cc/68fgbnFb/Photo3.jpg" class="rounded w-full h-64 object-cover"></div>
+            </div>
+
+            <div class="text-center space-y-4">
                 <p class="text-3xl text-pink-600 font-bold">💕 Forever Yours — [Your Name] 💕</p>
-                <p class="text-gray-500 italic max-w-md">"Every moment with you is a memory I treasure forever."</p>
             </div>
         </div>
-
     </div>
 
-    <audio id="player" src="your-music-file.mp3" loop></audio>
+    <audio id="player" src="music.mp3" loop></audio>
 
     <script>
-        // Particles
+        // Heart Animation
         setInterval(() => {
             const h = document.createElement('div');
             h.innerHTML = Math.random() > 0.5 ? '❤️' : '💖'; h.className = 'heart';
@@ -152,7 +156,10 @@
             setTimeout(() => h.remove(), 7000);
         }, 400);
 
-        function toOnboarding() { document.getElementById('stage-start').classList.add('hidden'); document.getElementById('stage-onboarding').classList.remove('hidden'); }
+        function toOnboarding() { 
+            document.getElementById('stage-start').classList.add('hidden'); 
+            document.getElementById('stage-onboarding').classList.remove('hidden'); 
+        }
 
         function move(idx) {
             document.getElementById('track').style.transform = `translateX(-${idx * 33.333}%)`;
@@ -165,13 +172,16 @@
             btn.style.left = Math.random() * 80 + '%'; btn.style.top = Math.random() * 80 + '%';
         }
 
-        function toParty() { document.getElementById('stage-onboarding').classList.add('hidden'); document.getElementById('stage-party').classList.remove('hidden'); }
+        function toParty() { 
+            document.getElementById('stage-onboarding').classList.add('hidden'); 
+            document.getElementById('stage-party').classList.remove('hidden'); 
+        }
 
         let pStep = 0;
         function advanceParty() {
             pStep++;
             const btn = document.getElementById('partyBtn');
-            if(pStep === 1) { // Lights
+            if(pStep === 1) { 
                 document.body.style.backgroundColor = "#2d1b4d";
                 document.getElementById('party-title').style.color = "white";
                 for(let i=0; i<12; i++) {
@@ -186,8 +196,7 @@
             } else if(pStep === 2) {
                 document.getElementById('player').play();
                 btn.innerText = "🎨 Decorate";
-            } else if(pStep === 3) { // Banner & Cake
-                document.getElementById('banner-area').innerHTML = "";
+            } else if(pStep === 3) { 
                 "HAPPY BIRTHDAY".split('').forEach((c, i) => {
                     const f = document.createElement('div');
                     f.innerText = c === ' ' ? '\u00A0' : c; f.className = "flag";
@@ -196,7 +205,7 @@
                 });
                 document.getElementById('cake').classList.add('show');
                 btn.innerText = "🎈 Fly The Balloons";
-            } else if(pStep === 4) { // Balloons
+            } else if(pStep === 4) {
                 for(let i=0; i<25; i++) {
                     setTimeout(() => {
                         const b = document.createElement('div');
@@ -224,6 +233,7 @@
         function toMemories() {
             document.getElementById('stage-letter').classList.add('hidden');
             document.getElementById('stage-memories').classList.remove('hidden');
+            window.scrollTo(0, 0);
         }
     </script>
 </body>
