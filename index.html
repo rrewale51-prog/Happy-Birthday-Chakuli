@@ -8,29 +8,94 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap');
+        
         body { font-family: 'Quicksand', sans-serif; overflow-x: hidden; background-color: #ffe4e6; transition: all 1.5s ease; }
         img { image-rendering: -webkit-optimize-contrast; object-fit: cover; }
 
-        /* Countdown Overlay */
-        #countdown-overlay { position: fixed; inset: 0; background: #ffe4e6; z-index: 1000; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-        .timer-box { background: white; padding: 2rem; border-radius: 2.5rem; border: 4px solid #f02e65; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
-        .timer-num { font-size: 3rem; font-weight: bold; color: #f02e65; min-width: 60px; display: inline-block; }
+        /* --- EXCITING COUNTDOWN STYLES --- */
+        #countdown-overlay { 
+            position: fixed; 
+            inset: 0; 
+            background: radial-gradient(circle, #ffafbd 0%, #ffc3a0 100%); 
+            z-index: 1000; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
+        }
 
-        /* Floating Hearts */
+        .glass-timer {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 3rem;
+            border-radius: 3rem;
+            box-shadow: 0 8px 32px 0 rgba(240, 46, 101, 0.37);
+            text-align: center;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .timer-unit {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: white;
+            padding: 1rem;
+            border-radius: 1.5rem;
+            min-width: 80px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+        }
+
+        .timer-num {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(to bottom, #f02e65, #ff7eb3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1;
+        }
+
+        .timer-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #f02e65;
+            font-weight: 700;
+            margin-top: 5px;
+        }
+
+        .pulse-ring {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 3rem;
+            border: 2px solid #fff;
+            animation: pulse-ring 2s cubic-bezier(0.455, 0.03, 0.515, 0.955) infinite;
+        }
+
+        @keyframes pulse-ring {
+            0% { transform: scale(0.95); opacity: 0.8; }
+            100% { transform: scale(1.15); opacity: 0; }
+        }
+
+        /* --- GAME & SURPRISE STYLES --- */
         .heart { position: fixed; top: -10%; color: rgba(255, 105, 180, 0.6); animation: fall linear infinite; z-index: 0; pointer-events: none; }
         @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
         .neon-glow { text-shadow: 0 0 15px #ff1493, 0 0 30px #ff69b4; color: #ff1493; }
 
-        /* Slider Engine */
         .slider-viewport { width: 100%; max-width: 350px; overflow: hidden; border-radius: 2.5rem; background: white; box-shadow: 0 25px 50px rgba(0,0,0,0.1); border: 4px solid white; }
         .slider-track { display: flex; width: 300%; transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1); }
         .slide-unit { width: 33.333%; padding: 2.5rem; text-align: center; flex-shrink: 0; }
 
-        /* Banner Flags */
         .flag { display: inline-block; animation: sway 3s ease-in-out infinite alternate; transform-origin: top; background: #f02e65; color: white; padding: 6px 10px; border-radius: 0 0 8px 8px; margin: 2px; font-weight: bold; }
         @keyframes sway { from { transform: rotate(-5deg); } to { transform: rotate(5deg); } }
 
-        /* Cake Styles */
         .cake { position: relative; width: 160px; height: 120px; margin: 0 auto; transform: translateY(100px); opacity: 0; transition: all 1s ease; }
         .cake.show { transform: translateY(0); opacity: 1; }
         .cake-layer { position: absolute; width: 100%; border-radius: 10px; border-bottom: 4px solid rgba(0,0,0,0.1); }
@@ -49,16 +114,31 @@
 <body>
 
     <div id="countdown-overlay">
-        <h2 class="text-2xl font-bold text-pink-600 mb-6">For Shraddha 💕... ✨</h2>
-        <div class="timer-box text-center">
-            <div class="flex gap-4">
-                <div><span id="days" class="timer-num">00</span><p class="text-xs text-gray-400">Days</p></div>
-                <div><span id="hours" class="timer-num">00</span><p class="text-xs text-gray-400">Hours</p></div>
-                <div><span id="mins" class="timer-num">00</span><p class="text-xs text-gray-400">Mins</p></div>
-                <div><span id="secs" class="timer-num">00</span><p class="text-xs text-gray-400">Secs</p></div>
+        <div class="relative">
+            <div class="pulse-ring"></div>
+            <div class="glass-timer">
+                <h2 class="text-3xl font-bold text-white mb-8 drop-shadow-md">Something Special Unlocks In...</h2>
+                <div class="flex gap-4">
+                    <div class="timer-unit">
+                        <span id="days" class="timer-num">00</span>
+                        <span class="timer-label">Days</span>
+                    </div>
+                    <div class="timer-unit">
+                        <span id="hours" class="timer-num">00</span>
+                        <span class="timer-label">Hours</span>
+                    </div>
+                    <div class="timer-unit">
+                        <span id="mins" class="timer-num">00</span>
+                        <span class="timer-label">Mins</span>
+                    </div>
+                    <div class="timer-unit">
+                        <span id="secs" class="timer-num">00</span>
+                        <span class="timer-label">Secs</span>
+                    </div>
+                </div>
+                <p class="mt-8 text-white font-medium italic opacity-90">Get ready, Madam Jiii! ✨</p>
             </div>
         </div>
-        <p class="mt-8 text-gray-500 italic">Something magical is unlocking soon!</p>
     </div>
 
     <div id="particles"></div>
@@ -97,9 +177,9 @@
                     </div>
                 </div>
                 <div class="flex justify-center gap-2 pb-6">
-                    <div id="dot0" class="w-2 h-2 rounded-full bg-pink-500 transition-all"></div>
-                    <div id="dot1" class="w-2 h-2 rounded-full bg-gray-200 transition-all"></div>
-                    <div id="dot2" class="w-2 h-2 rounded-full bg-gray-200 transition-all"></div>
+                    <div id="dot0" class="w-2 h-2 rounded-full bg-pink-500"></div>
+                    <div id="dot1" class="w-2 h-2 rounded-full bg-gray-200"></div>
+                    <div id="dot2" class="w-2 h-2 rounded-full bg-gray-200"></div>
                 </div>
             </div>
         </div>
@@ -124,7 +204,7 @@
                 <div id="curt-r" class="curtain absolute inset-y-0 right-0 w-1/2"></div>
                 <div class="p-8 h-full overflow-y-auto text-gray-700 italic text-sm leading-relaxed">
                     <p class="font-bold text-pink-600 text-lg mb-4">Dearest Madam Jiii,</p>
-                    <p>Enter your heartfelt message here...</p>
+                    <p>Enter your heartfelt message here. Make it special!</p>
                     <p class="mt-8 font-bold text-right text-pink-500">— [Your Name]</p>
                 </div>
             </div>
@@ -153,7 +233,7 @@
     <audio id="player" src="music.mp3" loop></audio>
 
     <script>
-        // --- 1. SET BIRTHDAY DATE HERE ---
+        // --- SET BIRTHDAY DATE HERE (Year, Month Index 0-11, Day, Hour, Minute) ---
         const birthdayDate = new Date(2026, 0, 20, 0, 0, 0).getTime();
 
         const timer = setInterval(function() {
@@ -177,7 +257,7 @@
             }
         }, 1000);
 
-        // --- 2. GAME LOGIC ---
+        // --- PARTICLE EFFECT ---
         setInterval(() => {
             const h = document.createElement('div');
             h.innerHTML = Math.random() > 0.5 ? '❤️' : '💖'; h.className = 'heart';
@@ -187,6 +267,7 @@
             setTimeout(() => h.remove(), 7000);
         }, 400);
 
+        // --- FLOW LOGIC ---
         function toOnboarding() { document.getElementById('stage-start').classList.add('hidden'); document.getElementById('stage-onboarding').classList.remove('hidden'); }
         function move(idx) {
             document.getElementById('track').style.transform = `translateX(-${idx * 33.333}%)`;
