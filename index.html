@@ -3,34 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Special Surprise</title>
+    <title>Happy Birthday Madam Jii</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap');
-        
         body { font-family: 'Quicksand', sans-serif; overflow-x: hidden; background-color: #ffe4e6; transition: all 1.5s ease; }
-        
-        /* Force image sharpness */
         img { image-rendering: -webkit-optimize-contrast; object-fit: cover; }
+
+        /* Countdown Overlay */
+        #countdown-overlay { position: fixed; inset: 0; background: #ffe4e6; z-index: 1000; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .timer-box { background: white; padding: 2rem; border-radius: 2.5rem; border: 4px solid #f02e65; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+        .timer-num { font-size: 3rem; font-weight: bold; color: #f02e65; min-width: 60px; display: inline-block; }
 
         /* Floating Hearts */
         .heart { position: fixed; top: -10%; color: rgba(255, 105, 180, 0.6); animation: fall linear infinite; z-index: 0; pointer-events: none; }
         @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
-
-        /* Neon Text */
         .neon-glow { text-shadow: 0 0 15px #ff1493, 0 0 30px #ff69b4; color: #ff1493; }
 
-        /* Sliding Slider */
+        /* Slider Engine */
         .slider-viewport { width: 100%; max-width: 350px; overflow: hidden; border-radius: 2.5rem; background: white; box-shadow: 0 25px 50px rgba(0,0,0,0.1); border: 4px solid white; }
         .slider-track { display: flex; width: 300%; transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1); }
         .slide-unit { width: 33.333%; padding: 2.5rem; text-align: center; flex-shrink: 0; }
 
-        /* Hanging Flags */
-        .flag { display: inline-block; animation: sway 3s ease-in-out infinite alternate; transform-origin: top; background: #f02e65; color: white; padding: 6px 10px; border-radius: 0 0 8px 8px; margin: 2px; font-weight: bold; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        /* Banner Flags */
+        .flag { display: inline-block; animation: sway 3s ease-in-out infinite alternate; transform-origin: top; background: #f02e65; color: white; padding: 6px 10px; border-radius: 0 0 8px 8px; margin: 2px; font-weight: bold; }
         @keyframes sway { from { transform: rotate(-5deg); } to { transform: rotate(5deg); } }
 
-        /* CSS Cake */
+        /* Cake Styles */
         .cake { position: relative; width: 160px; height: 120px; margin: 0 auto; transform: translateY(100px); opacity: 0; transition: all 1s ease; }
         .cake.show { transform: translateY(0); opacity: 1; }
         .cake-layer { position: absolute; width: 100%; border-radius: 10px; border-bottom: 4px solid rgba(0,0,0,0.1); }
@@ -41,15 +41,25 @@
         .flame { position: absolute; width: 12px; height: 18px; background: #f97316; border-radius: 50% 50% 20% 20%; top: -15px; left: -2px; animation: flicker 0.1s infinite alternate; }
         @keyframes flicker { from { opacity: 0.8; } to { opacity: 1; } }
 
-        /* Balloons */
         .balloon { position: fixed; bottom: -100px; font-size: 3rem; animation: floatUp 6s ease-in forwards; z-index: 100; }
         @keyframes floatUp { 0% { bottom: -100px; opacity: 1; } 100% { bottom: 120vh; opacity: 0; } }
-
-        /* Curtains */
         .curtain { transition: transform 2s cubic-bezier(0.4, 0, 0.2, 1); background: #991b1b; z-index: 20; border: 1px solid #7f1d1d; }
     </style>
 </head>
 <body>
+
+    <div id="countdown-overlay">
+        <h2 class="text-2xl font-bold text-pink-600 mb-6">Patience, Madam Jiii... ✨</h2>
+        <div class="timer-box text-center">
+            <div class="flex gap-4">
+                <div><span id="days" class="timer-num">00</span><p class="text-xs text-gray-400">Days</p></div>
+                <div><span id="hours" class="timer-num">00</span><p class="text-xs text-gray-400">Hours</p></div>
+                <div><span id="mins" class="timer-num">00</span><p class="text-xs text-gray-400">Mins</p></div>
+                <div><span id="secs" class="timer-num">00</span><p class="text-xs text-gray-400">Secs</p></div>
+            </div>
+        </div>
+        <p class="mt-8 text-gray-500 italic">Something magical is unlocking soon!</p>
+    </div>
 
     <div id="particles"></div>
 
@@ -114,7 +124,7 @@
                 <div id="curt-r" class="curtain absolute inset-y-0 right-0 w-1/2"></div>
                 <div class="p-8 h-full overflow-y-auto text-gray-700 italic text-sm leading-relaxed">
                     <p class="font-bold text-pink-600 text-lg mb-4">Dearest Madam Jiii,</p>
-                    <p>Put your beautiful, handwritten letter here. Let her know exactly why she is so important to you.</p>
+                    <p>Enter your heartfelt message here...</p>
                     <p class="mt-8 font-bold text-right text-pink-500">— [Your Name]</p>
                 </div>
             </div>
@@ -124,7 +134,6 @@
 
         <div id="stage-memories" class="hidden w-full max-w-4xl flex flex-col items-center space-y-12 pb-20 animate__animated animate__fadeInRight">
             <h2 class="text-4xl font-bold text-pink-600 italic">📷 Our Beautiful Memories</h2>
-            
             <div class="w-full max-w-2xl px-4">
                 <div class="bg-white p-4 shadow-2xl rounded-3xl transform rotate-1">
                     <video id="memoryVideo" controls class="w-full rounded-2xl">
@@ -132,22 +141,43 @@
                     </video>
                 </div>
             </div>
-
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 w-full px-4">
-                <div class="bg-white p-3 shadow-xl transform rotate-2"><img src="photo1.jpg" class="rounded w-full h-64 object-cover"></div>
-                <div class="bg-white p-3 shadow-xl transform -rotate-3"><img src="photo2.jpg" class="rounded w-full h-64 object-cover"></div>
-                <div class="bg-white p-3 shadow-xl transform rotate-1"><img src="photo3.jpg" class="rounded w-full h-64 object-cover"></div>
+                <div class="bg-white p-3 shadow-xl transform rotate-2"><img src="photo1.jpg" class="rounded w-full h-64"></div>
+                <div class="bg-white p-3 shadow-xl transform -rotate-3"><img src="photo2.jpg" class="rounded w-full h-64"></div>
+                <div class="bg-white p-3 shadow-xl transform rotate-1"><img src="photo3.jpg" class="rounded w-full h-64"></div>
             </div>
-
             <p class="text-3xl text-pink-600 font-bold">💕 Forever Yours — [Your Name] 💕</p>
         </div>
-
     </div>
 
     <audio id="player" src="music.mp3" loop></audio>
 
     <script>
-        // Particles
+        // --- 1. SET BIRTHDAY DATE HERE ---
+        const birthdayDate = new Date(2026, 0, 20, 0, 0, 0).getTime();
+
+        const timer = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = birthdayDate - now;
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const mins = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const secs = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerText = days.toString().padStart(2, '0');
+            document.getElementById("hours").innerText = hours.toString().padStart(2, '0');
+            document.getElementById("mins").innerText = mins.toString().padStart(2, '0');
+            document.getElementById("secs").innerText = secs.toString().padStart(2, '0');
+
+            if (distance < 0) {
+                clearInterval(timer);
+                const ov = document.getElementById("countdown-overlay");
+                ov.classList.add('animate__animated', 'animate__fadeOut');
+                setTimeout(() => ov.style.display = "none", 1000);
+            }
+        }, 1000);
+
+        // --- 2. GAME LOGIC ---
         setInterval(() => {
             const h = document.createElement('div');
             h.innerHTML = Math.random() > 0.5 ? '❤️' : '💖'; h.className = 'heart';
@@ -157,34 +187,23 @@
             setTimeout(() => h.remove(), 7000);
         }, 400);
 
-        function toOnboarding() { 
-            document.getElementById('stage-start').classList.add('hidden'); 
-            document.getElementById('stage-onboarding').classList.remove('hidden'); 
-        }
-
+        function toOnboarding() { document.getElementById('stage-start').classList.add('hidden'); document.getElementById('stage-onboarding').classList.remove('hidden'); }
         function move(idx) {
             document.getElementById('track').style.transform = `translateX(-${idx * 33.333}%)`;
             for(let i=0; i<3; i++) document.getElementById(`dot${i}`).className = `w-2 h-2 rounded-full ${i===idx ? 'bg-pink-500' : 'bg-gray-200'}`;
         }
-
         function dodge() {
-            const btn = document.getElementById('noBtn');
-            btn.style.position = 'absolute';
+            const btn = document.getElementById('noBtn'); btn.style.position = 'absolute';
             btn.style.left = Math.random() * 80 + '%'; btn.style.top = Math.random() * 80 + '%';
         }
-
-        function toParty() { 
-            document.getElementById('stage-onboarding').classList.add('hidden'); 
-            document.getElementById('stage-party').classList.remove('hidden'); 
-        }
-
+        function toParty() { document.getElementById('stage-onboarding').classList.add('hidden'); document.getElementById('stage-party').classList.remove('hidden'); }
+        
         let pStep = 0;
         function advanceParty() {
             pStep++;
             const btn = document.getElementById('partyBtn');
             if(pStep === 1) { 
-                document.body.style.backgroundColor = "#2d1b4d";
-                document.getElementById('party-title').style.color = "white";
+                document.body.style.backgroundColor = "#2d1b4d"; document.getElementById('party-title').style.color = "white";
                 for(let i=0; i<12; i++) {
                     setTimeout(() => {
                         const l = document.createElement('div');
@@ -195,8 +214,7 @@
                 }
                 btn.innerText = "🎵 Play Music";
             } else if(pStep === 2) {
-                document.getElementById('player').play();
-                btn.innerText = "🎨 Decorate";
+                document.getElementById('player').play(); btn.innerText = "🎨 Decorate";
             } else if(pStep === 3) { 
                 "HAPPY BIRTHDAY".split('').forEach((c, i) => {
                     const f = document.createElement('div');
@@ -204,15 +222,12 @@
                     f.style.animationDelay = `${i * 0.1}s`;
                     document.getElementById('banner-area').appendChild(f);
                 });
-                document.getElementById('cake').classList.add('show');
-                btn.innerText = "🎈 Fly The Balloons";
+                document.getElementById('cake').classList.add('show'); btn.innerText = "🎈 Fly The Balloons";
             } else if(pStep === 4) {
                 for(let i=0; i<25; i++) {
                     setTimeout(() => {
-                        const b = document.createElement('div');
-                        b.className = "balloon"; b.innerText = "🎈";
-                        b.style.left = Math.random() * 90 + 'vw';
-                        document.body.appendChild(b);
+                        const b = document.createElement('div'); b.className = "balloon"; b.innerText = "🎈";
+                        b.style.left = Math.random() * 90 + 'vw'; document.body.appendChild(b);
                         setTimeout(() => b.remove(), 6000);
                     }, i * 200);
                 }
@@ -235,7 +250,7 @@
             document.getElementById('stage-letter').classList.add('hidden');
             document.getElementById('stage-memories').classList.remove('hidden');
             document.getElementById('memoryVideo').play(); 
-            window.scrollTo(0, 0);
+            window.scrollTo(0,0);
         }
     </script>
 </body>
