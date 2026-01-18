@@ -3,198 +3,199 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Birthday Surprise</title>
+    <title>Happy Birthday Surprise!</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@400;600&display=swap');
-        
-        body { font-family: 'Quicksand', sans-serif; overflow: hidden; background: #ffe4e6; }
-        .neon-glow { text-shadow: 0 0 15px rgba(255, 20, 147, 0.7); }
-        
-        /* Floating Hearts Background */
+        @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap');
+        body { font-family: 'Quicksand', sans-serif; overflow-x: hidden; background-color: #ffe4e6; transition: background-color 1.5s ease; }
+        .neon-text { text-shadow: 0 0 12px #ff1493, 0 0 25px #ff69b4; color: #ff1493; }
         .heart-bg { position: fixed; top: -10%; font-size: 20px; color: rgba(255, 105, 180, 0.4); animation: fall linear infinite; z-index: -1; }
         @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
-
-        /* Smooth Cake Slide */
-        #cake-container { transition: transform 2s cubic-bezier(0.175, 0.885, 0.32, 1.275); transform: translateY(100%); }
-        #cake-container.show { transform: translateY(0); }
-
-        /* Hanging Banner Sway */
-        .flag { display: inline-block; animation: flagSway 3s ease-in-out infinite alternate; transform-origin: top; }
-        @keyframes flagSway { from { transform: rotate(-3deg); } to { transform: rotate(3deg); } }
-
-        /* Curtain Styling */
-        .curtain-panel { transition: transform 2s ease-in-out; background: #b91c1c; border: 2px solid #fbbf24; }
-        
-        /* Balloon Animation */
-        .balloon-anim { position: absolute; bottom: -100px; animation: floatUp 5s ease-in forwards; }
-        @keyframes floatUp { 0% { bottom: -100px; opacity: 1; } 100% { bottom: 110vh; opacity: 0; } }
+        .hanging-flag { display: inline-block; animation: sway 3s ease-in-out infinite alternate; transform-origin: top; }
+        @keyframes sway { from { transform: rotate(-5deg); } to { transform: rotate(5deg); } }
+        .balloon { position: absolute; bottom: -100px; animation: flyUp 5s ease-in forwards; font-size: 3rem; }
+        @keyframes flyUp { to { transform: translateY(-120vh); opacity: 0; } }
+        .curtain-reveal { transition: transform 2s cubic-bezier(0.4, 0, 0.2, 1); }
     </style>
 </head>
 <body>
+    <div id="hearts"></div>
 
-    <div id="heart-container"></div>
-
-    <div id="app" class="h-screen w-screen flex flex-col items-center justify-center p-4">
-        
-        <div id="page-start" class="text-center space-y-6">
-            <h1 class="text-xl font-bold text-gray-700 animate__animated animate__fadeIn">Happy Birthday [Name] 🎂</h1>
-            <h2 class="text-5xl font-bold text-pink-500 neon-glow animate__animated animate__pulse animate__infinite">It's Your Birthday!</h2>
-            <button onclick="transition('page-start', 'page-slide')" class="bg-[#f02e65] text-white px-10 py-4 rounded-full text-xl font-bold shadow-lg transform active:scale-95 transition">🎀 Let's Celebrate</button>
-        </div>
-
-        <div id="page-slide" class="hidden bg-white/90 backdrop-blur-sm rounded-[2rem] p-8 shadow-2xl w-full max-w-xs text-center border-4 border-white">
-            <div id="slide-content">
-                <div class="text-4xl mb-4">✨</div>
-                <h3 id="slide-text" class="text-2xl font-bold text-gray-800 mb-6">It's Your Special Day Yeyey!</h3>
-                <div id="slide-btns" class="flex flex-col gap-3">
-                    <button onclick="handleSlide(1)" class="bg-[#f02e65] text-white py-3 rounded-2xl font-bold">Next</button>
-                </div>
-                <div class="flex justify-center gap-2 mt-6">
-                    <div id="dot-1" class="w-2 h-2 rounded-full bg-pink-500"></div>
-                    <div id="dot-2" class="w-2 h-2 rounded-full bg-gray-300"></div>
-                    <div id="dot-3" class="w-2 h-2 rounded-full bg-gray-300"></div>
-                </div>
-            </div>
-        </div>
-
-        <div id="page-main" class="hidden w-full h-full flex flex-col items-center pt-20">
-            <h2 class="text-3xl font-bold text-pink-600 mb-8">Let's Celebrate! 🥳</h2>
-            
-            <div id="light-row" class="flex gap-3 mb-12 h-4"></div>
-
-            <button id="mainBtn" onclick="nextMainStep()" class="bg-yellow-400 text-gray-800 px-8 py-3 rounded-full font-bold shadow-xl z-50 transition-all hover:bg-yellow-300">💡 Turn On The Lights</button>
-
-            <div id="banner" class="hidden mt-12 flex flex-wrap justify-center gap-1"></div>
-
-            <div id="cake-container" class="mt-auto mb-10 opacity-0">
-                <img src="https://cdn-icons-png.flaticon.com/512/3132/3132693.png" class="w-40 md:w-56" alt="Cake">
-            </div>
-        </div>
-
-        <div id="page-curtain" class="hidden w-full max-w-sm flex flex-col items-center">
-            <h2 class="text-xl font-bold text-pink-600 mb-4">💌 A Message From My Heart</h2>
-            <div class="relative w-full h-80 bg-white rounded-2xl shadow-xl overflow-hidden border-4 border-white">
-                <div id="l-curtain" class="curtain-panel absolute inset-y-0 left-0 w-1/2 z-30"></div>
-                <div id="r-curtain" class="curtain-panel absolute inset-y-0 right-0 w-1/2 z-30"></div>
-                <div class="p-6 h-full overflow-y-auto text-gray-700 italic text-sm leading-relaxed">
-                    <p>My Dearest Madam Ji,</p>
-                    <p class="mt-2">This is the long letter I wrote for you. I hope it brings a smile to your face just like you bring one to mine every single day...</p>
-                    <p class="mt-4">You are special, you are unique, and you deserve the world.</p>
-                </div>
-            </div>
-            <button id="curtainBtn" onclick="openCurtains()" class="mt-4 text-pink-600 font-bold underline">✨ Click to Open ✨</button>
-            <button onclick="transition('page-curtain', 'page-gallery')" class="mt-8 bg-[#f02e65] text-white px-6 py-2 rounded-full shadow-lg">📷 View Our Memories</button>
-        </div>
-
+    <div class="fixed top-4 right-4 z-50">
+        <button onclick="toggleMusic()" class="bg-white border-2 border-pink-400 text-pink-500 px-4 py-2 rounded-full font-bold shadow-md flex items-center gap-2">
+            <span id="musicIcon">🎵</span> <span id="musicStatus">Play Music</span>
+        </button>
+        <audio id="bgMusic" src="your-music-file.mp3" loop></audio>
     </div>
 
-    <audio id="bgMusic" src="your-music-file.mp3" loop></audio>
+    <div id="main-content" class="min-h-screen flex flex-col items-center justify-center p-6 text-center">
+        
+        <div id="sec-start" class="space-y-6">
+            <h1 class="text-2xl font-bold text-gray-800">Happy Birthday <span class="text-pink-600">[Name]</span> 🎂</h1>
+            <p class="text-gray-500">Your personalized message goes here ❤️</p>
+            <h2 class="text-5xl font-bold neon-text animate__animated animate__pulse animate__infinite">It's Your Birthday!</h2>
+            <div class="flex flex-col items-center">
+                <p class="text-pink-600 font-bold">💜 Ready for your surprise! 💜</p>
+                <p class="text-xs text-gray-400 mt-1 italic">Something magical is about to unfold ✨</p>
+            </div>
+            <button onclick="showOnboarding()" class="bg-[#f02e65] text-white px-10 py-4 rounded-full text-xl font-bold shadow-xl hover:scale-105 transition">🎀 Let's Celebrate</button>
+        </div>
+
+        <div id="sec-card" class="hidden bg-white rounded-[2.5rem] p-10 shadow-2xl w-full max-w-sm relative">
+            <div id="slide-1">
+                <div class="text-5xl mb-4">✨</div>
+                <h3 class="text-2xl font-bold text-gray-700 mb-8">It's Your Special Day Yeyey!</h3>
+                <button onclick="moveSlide(2)" class="bg-[#f02e65] text-white w-full py-3 rounded-2xl font-bold">Next</button>
+                <div class="flex justify-center gap-2 mt-6"><div class="w-2 h-2 rounded-full bg-pink-500"></div><div class="w-2 h-2 rounded-full bg-gray-200"></div><div class="w-2 h-2 rounded-full bg-gray-200"></div></div>
+            </div>
+            <div id="slide-2" class="hidden">
+                <div class="text-5xl mb-4">✨</div>
+                <h3 class="text-xl font-bold text-gray-700 mb-8">Do you wanna see what I made??</h3>
+                <div class="flex gap-4">
+                    <button onclick="moveSlide(3)" class="bg-[#f02e65] text-white flex-1 py-3 rounded-2xl font-bold">Yes!</button>
+                    <button onclick="alert('Try again! 😉')" class="bg-purple-600 text-white flex-1 py-3 rounded-2xl font-bold">No</button>
+                </div>
+                <div class="flex justify-center gap-2 mt-6"><div class="w-2 h-2 rounded-full bg-gray-200"></div><div class="w-2 h-2 rounded-full bg-pink-500"></div><div class="w-2 h-2 rounded-full bg-gray-200"></div></div>
+            </div>
+            <div id="slide-3" class="hidden">
+                <div class="text-5xl mb-4">✨</div>
+                <h3 class="text-xl font-bold text-gray-700 mb-8">Have a look at it, Madam Jiii</h3>
+                <button onclick="startMainCourse()" class="bg-[#f02e65] text-white w-full py-3 rounded-2xl font-bold">Let's Go! 🎉</button>
+                <div class="flex justify-center gap-2 mt-6"><div class="w-2 h-2 rounded-full bg-gray-200"></div><div class="w-2 h-2 rounded-full bg-gray-200"></div><div class="w-2 h-2 rounded-full bg-pink-500"></div></div>
+            </div>
+        </div>
+
+        <div id="sec-party" class="hidden w-full flex flex-col items-center">
+            <h2 id="party-header" class="text-3xl font-bold text-pink-600 mb-6">Let's Celebrate! 🥳</h2>
+            <div id="lights" class="flex justify-center gap-2 mb-10 h-6"></div>
+            
+            <button id="partyBtn" onclick="advanceParty()" class="bg-yellow-400 text-gray-800 px-8 py-3 rounded-full font-bold shadow-lg mb-10">💡 Turn On the Lights</button>
+
+            <div id="banner-area" class="hidden mb-10 flex flex-wrap justify-center gap-1"></div>
+            <div id="cake-area" class="hidden animate__animated animate__slideInUp">
+                <img src="https://cdn-icons-png.flaticon.com/512/3132/3132693.png" class="w-48 mx-auto" alt="Birthday Cake">
+            </div>
+        </div>
+
+        <div id="sec-letter" class="hidden w-full max-w-sm">
+            <h2 class="text-xl font-bold text-pink-600 mb-4">💌 A Message From My Heart</h2>
+            <div class="relative h-80 bg-white rounded-2xl shadow-2xl overflow-hidden">
+                <div id="l-curtain" class="curtain-reveal absolute left-0 w-1/2 h-full bg-red-700 border-r-2 border-yellow-500 z-10"></div>
+                <div id="r-curtain" class="curtain-reveal absolute right-0 w-1/2 h-full bg-red-700 border-l-2 border-yellow-500 z-10"></div>
+                <div class="p-8 h-full overflow-y-auto text-left italic text-gray-700 text-sm leading-relaxed">
+                    <p class="font-bold text-pink-600 mb-4">[Recipient Name],</p>
+                    <p>I wanted to tell you how much you mean to me. This letter is just a small way to express my love on your special day...</p>
+                    <p class="mt-4">Happy Birthday!</p>
+                </div>
+            </div>
+            <button id="openBtn" onclick="openLetter()" class="mt-4 text-pink-600 font-bold">✨ Click to Open ✨</button>
+            <button onclick="showGallery()" class="mt-10 bg-[#f02e65] text-white px-8 py-3 rounded-full font-bold shadow-lg block mx-auto">📷 View Our Memories</button>
+        </div>
+
+        <div id="sec-gallery" class="hidden w-full max-w-4xl space-y-10">
+            <h2 class="text-3xl font-bold text-pink-600">📷 Our Beautiful Memories 📷</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <img src="photo1.jpg" class="rounded-lg shadow-md border-4 border-white">
+                <img src="photo2.jpg" class="rounded-lg shadow-md border-4 border-white">
+                <img src="photo3.jpg" class="rounded-lg shadow-md border-4 border-white">
+            </div>
+            <div class="py-10">
+                <p class="text-2xl text-pink-600 font-bold">💕 Forever Yours — [Your Name] 💕</p>
+                <p class="text-gray-500 mt-2">Your personalized closing message 🦄</p>
+            </div>
+        </div>
+    </div>
 
     <script>
-        let currentSlide = 1;
-        let mainStep = 0;
+        let partyStep = 0;
 
-        // 1. Background Heart Rain
-        function createHearts() {
-            const container = document.getElementById('heart-container');
+        // Constant heart animation
+        setInterval(() => {
             const heart = document.createElement('div');
-            heart.innerHTML = Math.random() > 0.5 ? '❤️' : '💖';
-            heart.className = 'heart-bg';
+            heart.innerHTML = '❤️'; heart.className = 'heart-bg';
             heart.style.left = Math.random() * 100 + 'vw';
             heart.style.animationDuration = (Math.random() * 3 + 4) + 's';
-            container.appendChild(heart);
+            document.getElementById('hearts').appendChild(heart);
             setTimeout(() => heart.remove(), 7000);
-        }
-        setInterval(createHearts, 400);
+        }, 500);
 
-        function transition(from, to) {
-            document.getElementById(from).classList.add('hidden');
-            const next = document.getElementById(to);
-            next.classList.remove('hidden');
-            next.classList.add('animate__animated', 'animate__fadeIn');
+        function showOnboarding() {
+            document.getElementById('sec-start').classList.add('hidden');
+            document.getElementById('sec-card').classList.remove('hidden');
         }
 
-        function handleSlide(step) {
-            if(step === 1) {
-                document.getElementById('slide-text').innerText = "Do you wanna see what I made??";
-                document.getElementById('slide-btns').innerHTML = `
-                    <div class="flex gap-2">
-                        <button onclick="handleSlide(2)" class="bg-[#f02e65] text-white py-3 rounded-2xl font-bold flex-1">Yes!</button>
-                        <button onclick="this.style.transform='scale(0.8)'" class="bg-purple-500 text-white py-3 rounded-2xl font-bold flex-1">No</button>
-                    </div>`;
-                updateDots(2);
-            } else if(step === 2) {
-                document.getElementById('slide-text').innerText = "Have a look at it, Madam Jiii";
-                document.getElementById('slide-btns').innerHTML = `<button onclick="transition('page-slide', 'page-main')" class="bg-[#f02e65] text-white py-3 rounded-2xl font-bold w-full">Let's Go! 🎉</button>`;
-                updateDots(3);
-            }
+        function moveSlide(n) {
+            for(let i=1; i<=3; i++) document.getElementById(`slide-${i}`).classList.add('hidden');
+            document.getElementById(`slide-${n}`).classList.remove('hidden');
         }
 
-        function updateDots(active) {
-            for(let i=1; i<=3; i++) {
-                document.getElementById(`dot-${i}`).className = `w-2 h-2 rounded-full ${i===active ? 'bg-pink-500' : 'bg-gray-300'}`;
-            }
+        function startMainCourse() {
+            document.getElementById('sec-card').classList.add('hidden');
+            document.getElementById('sec-party').classList.remove('hidden');
         }
 
-        function nextMainStep() {
-            mainStep++;
-            const btn = document.getElementById('mainBtn');
-            if(mainStep === 1) {
-                // Sequence Lights
-                const colors = ['#f43f5e', '#fbbf24', '#22c55e', '#3b82f6', '#a855f7'];
-                for(let i=0; i<10; i++) {
+        function advanceParty() {
+            partyStep++;
+            const btn = document.getElementById('partyBtn');
+            if(partyStep === 1) { // Lights
+                document.body.style.backgroundColor = "#2d1b4d";
+                document.getElementById('party-header').style.color = "white";
+                for(let i=0; i<15; i++) {
                     setTimeout(() => {
-                        const light = document.createElement('div');
-                        light.className = "w-4 h-4 rounded-full shadow-[0_0_10px_white] animate__animated animate__flash animate__infinite";
-                        light.style.backgroundColor = colors[i % colors.length];
-                        document.getElementById('light-row').appendChild(light);
-                    }, i * 300);
+                        const l = document.createElement('div');
+                        l.className = "w-4 h-4 rounded-full shadow-[0_0_10px_white]";
+                        l.style.backgroundColor = ['#f43f5e', '#fbbf24', '#22c55e', '#3b82f6'][i%4];
+                        document.getElementById('lights').appendChild(l);
+                    }, i * 150);
                 }
                 btn.innerText = "🎵 Play Music";
-            } else if(mainStep === 2) {
-                document.getElementById('bgMusic').play();
+            } else if(partyStep === 2) { // Music
+                toggleMusic();
                 btn.innerText = "🎨 Decorate";
-            } else if(mainStep === 3) {
-                // Swaying Banner
-                document.getElementById('banner').classList.remove('hidden');
-                "HAPPY BIRTHDAY".split('').forEach((l, i) => {
+            } else if(partyStep === 3) { // Cake & Banner
+                document.getElementById('cake-area').classList.remove('hidden');
+                document.getElementById('banner-area').classList.remove('hidden');
+                "HAPPY BIRTHDAY".split('').forEach((char, i) => {
                     const span = document.createElement('span');
-                    span.innerText = l === ' ' ? '\u00A0' : l;
-                    span.className = "flag text-2xl font-bold text-pink-600 px-1";
+                    span.innerText = char === ' ' ? '\u00A0' : char;
+                    span.className = "hanging-flag text-2xl font-bold text-white px-1";
                     span.style.animationDelay = `${i * 0.1}s`;
-                    document.getElementById('banner').appendChild(span);
+                    document.getElementById('banner-area').appendChild(span);
                 });
-                // Slide Up Cake
-                const cake = document.getElementById('cake-container');
-                cake.classList.remove('opacity-0');
-                cake.classList.add('show');
-                btn.innerText = "🎈 Fly The Balloons";
-            } else if(mainStep === 4) {
-                spawnBalloons();
+                btn.innerText = "🎈 Fly the Balloons";
+            } else if(partyStep === 4) { // Balloons
+                for(let i=0; i<20; i++) {
+                    setTimeout(() => {
+                        const b = document.createElement('div');
+                        b.className = "balloon"; b.innerText = "🎈";
+                        b.style.left = Math.random() * 90 + 'vw';
+                        document.body.appendChild(b);
+                    }, i * 200);
+                }
                 btn.innerText = "Well, I have a message for you Madam Ji";
             } else {
-                transition('page-main', 'page-curtain');
+                document.getElementById('sec-party').classList.add('hidden');
+                document.getElementById('sec-letter').classList.remove('hidden');
+                document.body.style.backgroundColor = "#ffe4e6";
             }
         }
 
-        function spawnBalloons() {
-            for(let i=0; i<20; i++) {
-                setTimeout(() => {
-                    const b = document.createElement('div');
-                    b.className = "balloon-anim text-6xl";
-                    b.innerText = Math.random() > 0.5 ? '🎈' : '💝';
-                    b.style.left = Math.random() * 90 + 'vw';
-                    document.body.appendChild(b);
-                }, i * 300);
-            }
+        function openLetter() {
+            document.getElementById('l-curtain').style.transform = "translateX(-100%)";
+            document.getElementById('r-curtain').style.transform = "translateX(100%)";
+            document.getElementById('openBtn').classList.add('hidden');
         }
 
-        function openCurtains() {
-            document.getElementById('l-curtain').style.transform = 'translateX(-100%)';
-            document.getElementById('r-curtain').style.transform = 'translateX(100%)';
-            document.getElementById('curtainBtn').style.display = 'none';
+        function showGallery() {
+            document.getElementById('sec-letter').classList.add('hidden');
+            document.getElementById('sec-gallery').classList.remove('hidden');
+        }
+
+        function toggleMusic() {
+            const m = document.getElementById('bgMusic');
+            if(m.paused) { m.play(); document.getElementById('musicStatus').innerText = "Pause Music"; }
+            else { m.pause(); document.getElementById('musicStatus').innerText = "Play Music"; }
         }
     </script>
 </body>
