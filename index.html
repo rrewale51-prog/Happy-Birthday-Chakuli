@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday!</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+        }
+        .heart {
+            position: fixed;
+            color: #ff69b4;
+            animation: float 6s linear infinite;
+            z-index: -1;
+        }
+        .curtain {
+            transition: transform 1.5s ease-in-out;
+        }
+        .open-left { transform: translateX(-100%); }
+        .open-right { transform: translateX(100%); }
+    </style>
+</head>
+<body class="bg-pink-100 font-sans overflow-x-hidden">
+
+    <div id="heart-container"></div>
+
+    <div id="app" class="min-h-screen flex flex-col items-center justify-center p-6">
+        
+        <div id="stage-welcome" class="text-center space-y-6">
+            <h1 class="text-4xl font-bold text-pink-600">Happy Birthday [Name] 🎂</h1>
+            <p class="text-gray-700">Your personalized message goes here</p>
+            <div class="text-5xl animate-bounce">✨ It's Your Birthday! 🦄</div>
+            <button onclick="nextStage('stage-welcome', 'stage-onboarding')" class="bg-pink-500 text-white px-8 py-3 rounded-full shadow-lg font-bold">Let's Celebrate 🎉</button>
+        </div>
+
+        <div id="stage-onboarding" class="hidden text-center space-y-6 bg-white p-10 rounded-3xl shadow-xl border-4 border-pink-200">
+            <div class="text-4xl">✨</div>
+            <h2 class="text-2xl font-bold">Do you wanna see what I made?</h2>
+            <div class="flex gap-4 justify-center">
+                <button onclick="nextStage('stage-onboarding', 'stage-party')" class="bg-pink-500 text-white px-6 py-2 rounded-lg">Yes!</button>
+                <button onclick="alert('Wrong answer! Try again.')" class="bg-gray-400 text-white px-6 py-2 rounded-lg">No</button>
+            </div>
+        </div>
+
+        <div id="stage-party" class="hidden w-full max-w-md text-center space-y-4">
+            <h2 class="text-2xl font-bold text-pink-600">Let's Celebrate! 🎊</h2>
+            <div id="lights-overlay" class="fixed inset-0 bg-black opacity-0 pointer-events-none transition-opacity duration-1000"></div>
+            
+            <div class="flex flex-col gap-3 relative z-10">
+                <button onclick="toggleLights()" class="bg-yellow-400 p-4 rounded-xl font-bold shadow">💡 Turn On The Lights</button>
+                <button onclick="playMusic()" class="bg-pink-400 p-4 rounded-xl font-bold shadow text-white">🎵 Play Music</button>
+                <button onclick="showBalloons()" class="bg-orange-500 p-4 rounded-xl font-bold shadow text-white">🎈 Fly The Balloons</button>
+                <button onclick="nextStage('stage-party', 'stage-letter')" class="bg-purple-500 p-4 rounded-xl font-bold shadow text-white">💌 A Message For You</button>
+            </div>
+            
+            <div id="party-decorations" class="text-4xl mt-10"></div>
+        </div>
+
+        <div id="stage-letter" class="hidden w-full max-w-lg text-center">
+            <h2 class="text-2xl font-bold mb-4">A Message From My Heart</h2>
+            <div class="relative h-64 bg-white border-2 border-pink-300 rounded-lg overflow-hidden flex items-center justify-center p-6">
+                <div id="l-curtain" class="curtain absolute inset-y-0 left-0 w-1/2 bg-red-700 border-r border-yellow-500 z-20 flex items-center justify-end">
+                     <div class="w-4 h-4 bg-yellow-400 rounded-full"></div>
+                </div>
+                <div id="r-curtain" class="curtain absolute inset-y-0 right-0 w-1/2 bg-red-700 border-l border-yellow-500 z-20 flex items-center justify-start">
+                    <div class="w-4 h-4 bg-yellow-400 rounded-full"></div>
+                </div>
+                
+                <p class="italic text-gray-800">"You are amazing! This is your special day and I wanted to make something unique just for you. Happy Birthday!"</p>
+            </div>
+            <button onclick="openCurtains()" class="mt-4 text-pink-600 font-bold">Click to Open 🖱️</button>
+        </div>
+
+    </div>
+
+    <script>
+        function nextStage(current, next) {
+            document.getElementById(current).classList.add('hidden');
+            document.getElementById(next).classList.remove('hidden');
+        }
+
+        function toggleLights() {
+            const overlay = document.getElementById('lights-overlay');
+            overlay.classList.toggle('opacity-50');
+            document.body.classList.toggle('bg-yellow-50');
+        }
+
+        function showBalloons() {
+            document.getElementById('party-decorations').innerHTML += " 🎈🎈🎈 ";
+        }
+
+        function openCurtains() {
+            document.getElementById('l-curtain').classList.add('open-left');
+            document.getElementById('r-curtain').classList.add('open-right');
+        }
+
+        // Generate falling hearts
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
+            document.getElementById('heart-container').appendChild(heart);
+            setTimeout(() => heart.remove(), 6000);
+        }
+        setInterval(createHeart, 500);
+    </script>
+</body>
+</html>
