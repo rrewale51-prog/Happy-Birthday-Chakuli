@@ -3,111 +3,216 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday!</title>
+    <title>Happy Birthday Surprise!</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/framer-motion@10.16.4/dist/framer-motion.js"></script>
     <style>
-        @keyframes float {
-            0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
-        }
-        .heart {
-            position: fixed;
-            color: #ff69b4;
-            animation: float 6s linear infinite;
-            z-index: -1;
-        }
-        .curtain {
-            transition: transform 1.5s ease-in-out;
-        }
-        .open-left { transform: translateX(-100%); }
-        .open-right { transform: translateX(100%); }
+        @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap');
+        body { font-family: 'Quicksand', sans-serif; overflow-x: hidden; }
+        .neon-text { text-shadow: 0 0 10px #ff69b4, 0 0 20px #ff69b4; }
+        .hanging-letter { display: inline-block; animation: sway 3s ease-in-out infinite alternate; transform-origin: top; }
+        @keyframes sway { from { transform: rotate(-5deg); } to { transform: rotate(5deg); } }
+        .balloon { position: absolute; bottom: -100px; animation: flyUp 4s linear forwards; }
+        @keyframes flyUp { to { transform: translateY(-120vh); opacity: 0; } }
+        .curtain-reveal { transition: transform 1.5s cubic-bezier(0.4, 0, 0.2, 1); }
     </style>
 </head>
-<body class="bg-pink-100 font-sans overflow-x-hidden">
+<body class="bg-pink-100 min-h-screen">
 
-    <div id="heart-container"></div>
+    <div class="fixed top-4 right-4 z-50">
+        <button id="musicBtn" onclick="toggleMusic()" class="bg-white/80 backdrop-blur px-4 py-2 rounded-full shadow-md flex items-center gap-2 border border-pink-200 text-pink-600 font-bold">
+            <span id="musicIcon">🎵</span> <span id="musicText">Play Music</span>
+        </button>
+        <audio id="bgMusic" src="your-music-file.mp3" loop></audio>
+    </div>
 
-    <div id="app" class="min-h-screen flex flex-col items-center justify-center p-6">
+    <div id="main-container" class="flex flex-col items-center justify-center min-h-screen p-6 relative">
         
-        <div id="stage-welcome" class="text-center space-y-6">
-            <h1 class="text-4xl font-bold text-pink-600">Happy Birthday [Name] 🎂</h1>
-            <p class="text-gray-700">Your personalized message goes here</p>
-            <div class="text-5xl animate-bounce">✨ It's Your Birthday! 🦄</div>
-            <button onclick="nextStage('stage-welcome', 'stage-onboarding')" class="bg-pink-500 text-white px-8 py-3 rounded-full shadow-lg font-bold">Let's Celebrate 🎉</button>
+        <div id="sec-1" class="text-center space-y-8 animate-in fade-in duration-1000">
+            <h1 class="text-2xl font-bold text-gray-800">Happy Birthday <span class="text-pink-600">[Name]</span> 🎂</h1>
+            <h2 class="text-5xl md:text-7xl font-bold text-pink-500 neon-text animate-pulse">It's Your Birthday!</h2>
+            <div class="flex flex-col items-center space-y-2">
+                <p class="text-pink-600 font-semibold">💖 Ready for your surprise? 💖</p>
+                <p class="text-sm text-gray-500">Something magical is about to unfold 🍃</p>
+            </div>
+            <button onclick="showSection('sec-onboarding')" class="bg-[#f02e65] text-white px-10 py-4 rounded-full text-xl font-bold shadow-[0_10px_20px_rgba(240,46,101,0.3)] hover:scale-105 transition">
+                🎀 Let's Celebrate
+            </button>
         </div>
 
-        <div id="stage-onboarding" class="hidden text-center space-y-6 bg-white p-10 rounded-3xl shadow-xl border-4 border-pink-200">
-            <div class="text-4xl">✨</div>
-            <h2 class="text-2xl font-bold">Do you wanna see what I made?</h2>
-            <div class="flex gap-4 justify-center">
-                <button onclick="nextStage('stage-onboarding', 'stage-party')" class="bg-pink-500 text-white px-6 py-2 rounded-lg">Yes!</button>
-                <button onclick="alert('Wrong answer! Try again.')" class="bg-gray-400 text-white px-6 py-2 rounded-lg">No</button>
+        <div id="sec-onboarding" class="hidden bg-white rounded-[3rem] p-10 shadow-2xl w-full max-w-lg text-center relative overflow-hidden">
+            <div id="slide-1" class="space-y-6">
+                <div class="text-5xl">✨</div>
+                <h3 class="text-3xl font-bold text-gray-700">It's Your Special Day Yeyey!</h3>
+                <button onclick="nextSlide(2)" class="bg-[#f02e65] text-white px-10 py-3 rounded-2xl text-lg font-bold w-full">Next</button>
+                <div class="flex justify-center gap-2 mt-4"><div class="w-3 h-3 rounded-full bg-pink-500"></div><div class="w-3 h-3 rounded-full bg-gray-200"></div><div class="w-3 h-3 rounded-full bg-gray-200"></div></div>
+            </div>
+
+            <div id="slide-2" class="hidden space-y-6">
+                <div class="text-5xl">✨</div>
+                <h3 class="text-2xl font-bold text-gray-700">Do you wanna see what I made??</h3>
+                <div class="flex gap-4">
+                    <button onclick="nextSlide(3)" class="bg-[#f02e65] text-white px-10 py-3 rounded-2xl text-lg font-bold flex-1">Yes!</button>
+                    <button onclick="alert('Try again! 😉')" class="bg-purple-600 text-white px-10 py-3 rounded-2xl text-lg font-bold flex-1">No</button>
+                </div>
+                <div class="flex justify-center gap-2 mt-4"><div class="w-3 h-3 rounded-full bg-gray-200"></div><div class="w-3 h-3 rounded-full bg-pink-500"></div><div class="w-3 h-3 rounded-full bg-gray-200"></div></div>
+            </div>
+
+            <div id="slide-3" class="hidden space-y-6">
+                <div class="text-5xl">✨</div>
+                <h3 class="text-2xl font-bold text-gray-700">Have a look at it, Madam Jiii</h3>
+                <button onclick="showSection('sec-party')" class="bg-[#f02e65] text-white px-10 py-3 rounded-2xl text-lg font-bold w-full">Let's Go! 🎉</button>
+                <div class="flex justify-center gap-2 mt-4"><div class="w-3 h-3 rounded-full bg-gray-200"></div><div class="w-3 h-3 rounded-full bg-gray-200"></div><div class="w-3 h-3 rounded-full bg-pink-500"></div></div>
             </div>
         </div>
 
-        <div id="stage-party" class="hidden w-full max-w-md text-center space-y-4">
-            <h2 class="text-2xl font-bold text-pink-600">Let's Celebrate! 🎊</h2>
-            <div id="lights-overlay" class="fixed inset-0 bg-black opacity-0 pointer-events-none transition-opacity duration-1000"></div>
+        <div id="sec-party" class="hidden w-full h-full text-center transition-all duration-1000">
+            <h2 class="text-4xl font-bold text-pink-600 mb-8" id="party-title">Let's Celebrate! 🎉</h2>
             
-            <div class="flex flex-col gap-3 relative z-10">
-                <button onclick="toggleLights()" class="bg-yellow-400 p-4 rounded-xl font-bold shadow">💡 Turn On The Lights</button>
-                <button onclick="playMusic()" class="bg-pink-400 p-4 rounded-xl font-bold shadow text-white">🎵 Play Music</button>
-                <button onclick="showBalloons()" class="bg-orange-500 p-4 rounded-xl font-bold shadow text-white">🎈 Fly The Balloons</button>
-                <button onclick="nextStage('stage-party', 'stage-letter')" class="bg-purple-500 p-4 rounded-xl font-bold shadow text-white">💌 A Message For You</button>
+            <div id="party-stage" class="relative min-h-[400px]">
+                <button id="partyActionBtn" onclick="advanceParty()" class="bg-yellow-400 px-8 py-3 rounded-full font-bold shadow-lg z-20 relative transition-all">
+                    💡 Turn On the Lights
+                </button>
+
+                <div id="bulb-row" class="hidden flex justify-center gap-2 mt-10">
+                    </div>
+
+                <div id="banner" class="hidden mt-10 text-xl font-bold flex flex-wrap justify-center gap-2">
+                    </div>
+
+                <div id="cake-container" class="hidden mt-10 flex flex-col items-center">
+                    <div class="flex gap-1 mb-[-5px]"><span class="animate-pulse">🔥</span><span class="animate-pulse">🔥</span><span class="animate-pulse">🔥</span></div>
+                    <div class="w-32 h-10 bg-orange-100 rounded-t-lg"></div>
+                    <div class="w-36 h-10 bg-orange-200"></div>
+                    <div class="w-40 h-10 bg-orange-300 rounded-b-lg shadow-xl"></div>
+                </div>
             </div>
-            
-            <div id="party-decorations" class="text-4xl mt-10"></div>
         </div>
 
-        <div id="stage-letter" class="hidden w-full max-w-lg text-center">
-            <h2 class="text-2xl font-bold mb-4">A Message From My Heart</h2>
-            <div class="relative h-64 bg-white border-2 border-pink-300 rounded-lg overflow-hidden flex items-center justify-center p-6">
-                <div id="l-curtain" class="curtain absolute inset-y-0 left-0 w-1/2 bg-red-700 border-r border-yellow-500 z-20 flex items-center justify-end">
-                     <div class="w-4 h-4 bg-yellow-400 rounded-full"></div>
-                </div>
-                <div id="r-curtain" class="curtain absolute inset-y-0 right-0 w-1/2 bg-red-700 border-l border-yellow-500 z-20 flex items-center justify-start">
-                    <div class="w-4 h-4 bg-yellow-400 rounded-full"></div>
-                </div>
+        <div id="sec-curtain" class="hidden w-full max-w-2xl text-center">
+            <h2 class="text-2xl font-bold text-pink-600 mb-6">💌 A Message From My Heart</h2>
+            <div class="relative h-[400px] bg-white rounded-3xl shadow-2xl overflow-hidden border-4 border-white">
+                <div id="left-curtain" class="curtain-reveal absolute inset-y-0 left-0 w-1/2 bg-red-700 border-r-4 border-yellow-500 z-20 flex items-center justify-end pr-2"><div class="w-6 h-6 bg-yellow-400 rounded-full"></div></div>
+                <div id="right-curtain" class="curtain-reveal absolute inset-y-0 right-0 w-1/2 bg-red-700 border-l-4 border-yellow-500 z-20 flex items-center justify-start pl-2"><div class="w-6 h-6 bg-yellow-400 rounded-full"></div></div>
                 
-                <p class="italic text-gray-800">"You are amazing! This is your special day and I wanted to make something unique just for you. Happy Birthday!"</p>
+                <div class="p-8 overflow-y-auto h-full text-left italic text-gray-700 leading-relaxed">
+                    <p class="text-xl font-bold text-pink-600 mb-4">[Recipient Name],</p>
+                    <p>Your personalized birthday message goes here. You can write multiple paragraphs to express your feelings, share memories, and make this special day even more memorable.</p>
+                    <p class="mt-4">This template supports multiple lines. Happy Birthday!</p>
+                    <p class="mt-8 font-bold">Forever Yours — [Your Name]</p>
+                </div>
             </div>
-            <button onclick="openCurtains()" class="mt-4 text-pink-600 font-bold">Click to Open 🖱️</button>
+            <button id="openCurtainBtn" onclick="openCurtains()" class="mt-6 bg-white/80 px-6 py-2 rounded-full font-bold text-pink-600 shadow-md">✨ Click to Open ✨</button>
+            <button onclick="showSection('sec-gallery')" class="mt-10 bg-[#f02e65] text-white px-8 py-3 rounded-full font-bold shadow-lg block mx-auto">📷 View Our Memories</button>
+        </div>
+
+        <div id="sec-gallery" class="hidden w-full max-w-4xl text-center space-y-10">
+            <h2 class="text-3xl font-bold text-pink-600 flex items-center justify-center gap-2">📷 Our Beautiful Memories 📷</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <img src="photo1.jpg" class="rounded-xl shadow-lg hover:scale-105 transition">
+                <img src="photo2.jpg" class="rounded-xl shadow-lg hover:scale-105 transition">
+                <img src="photo3.jpg" class="rounded-xl shadow-lg hover:scale-105 transition">
+            </div>
+            <div class="py-10">
+                <p class="text-2xl text-pink-600 font-bold">💕 Forever Yours — [Your Name] 💕</p>
+                <p class="text-gray-500 mt-2 italic">Your personalized closing message 🦄</p>
+            </div>
         </div>
 
     </div>
 
     <script>
-        function nextStage(current, next) {
-            document.getElementById(current).classList.add('hidden');
-            document.getElementById(next).classList.remove('hidden');
+        let partyStep = 0;
+        
+        function showSection(id) {
+            document.querySelectorAll('#main-container > div').forEach(div => div.classList.add('hidden'));
+            document.getElementById(id).classList.remove('hidden');
         }
 
-        function toggleLights() {
-            const overlay = document.getElementById('lights-overlay');
-            overlay.classList.toggle('opacity-50');
-            document.body.classList.toggle('bg-yellow-50');
+        function nextSlide(num) {
+            document.querySelectorAll('#sec-onboarding > div').forEach(div => div.classList.add('hidden'));
+            document.getElementById(`slide-${num}`).classList.remove('hidden');
         }
 
-        function showBalloons() {
-            document.getElementById('party-decorations').innerHTML += " 🎈🎈🎈 ";
+        function toggleMusic() {
+            const audio = document.getElementById('bgMusic');
+            if(audio.paused) { 
+                audio.play(); 
+                document.getElementById('musicText').innerText = "Pause Music";
+                document.getElementById('musicIcon').innerText = "⏸️";
+            } else { 
+                audio.pause(); 
+                document.getElementById('musicText').innerText = "Play Music";
+                document.getElementById('musicIcon').innerText = "🎵";
+            }
+        }
+
+        function advanceParty() {
+            const btn = document.getElementById('partyActionBtn');
+            partyStep++;
+            if(partyStep === 1) {
+                document.body.classList.replace('bg-pink-100', 'bg-[#1a0b2e]');
+                document.getElementById('bulb-row').classList.remove('hidden');
+                initBulbs();
+                btn.innerText = "🎵 Play Music";
+                btn.className = "bg-pink-500 text-white px-8 py-3 rounded-full font-bold shadow-lg z-20 relative";
+            } else if(partyStep === 2) {
+                toggleMusic();
+                document.getElementById('banner').classList.remove('hidden');
+                initBanner();
+                btn.innerText = "🎨 Decorate";
+            } else if(partyStep === 3) {
+                document.getElementById('cake-container').classList.remove('hidden');
+                btn.innerText = "🎈 Fly the Balloons";
+            } else if(partyStep === 4) {
+                spawnBalloons();
+                btn.innerText = "Well, I have a message for you Madam Ji";
+                btn.className = "bg-orange-500 text-white px-8 py-3 rounded-full font-bold shadow-lg z-20 relative";
+            } else {
+                showSection('sec-curtain');
+            }
+        }
+
+        function initBulbs() {
+            const colors = ['#ff4d4d', '#ffff4d', '#4dff4d', '#4dffff', '#ff4dff'];
+            const row = document.getElementById('bulb-row');
+            for(let i=0; i<15; i++) {
+                const dot = document.createElement('div');
+                dot.className = "w-3 h-3 rounded-full shadow-[0_0_10px_white]";
+                dot.style.backgroundColor = colors[i % colors.length];
+                row.appendChild(dot);
+            }
+        }
+
+        function initBanner() {
+            const text = "HAPPY BIRTHDAY";
+            const banner = document.getElementById('banner');
+            text.split("").forEach((char, i) => {
+                const span = document.createElement('span');
+                span.innerText = char === " " ? "\u00A0" : char;
+                span.className = "hanging-letter text-white text-3xl";
+                span.style.animationDelay = `${i * 0.1}s`;
+                banner.appendChild(span);
+            });
+        }
+
+        function spawnBalloons() {
+            for(let i=0; i<30; i++) {
+                setTimeout(() => {
+                    const b = document.createElement('div');
+                    b.className = "balloon text-5xl";
+                    b.innerText = "🎈";
+                    b.style.left = Math.random() * 100 + 'vw';
+                    document.body.appendChild(b);
+                }, i * 200);
+            }
         }
 
         function openCurtains() {
-            document.getElementById('l-curtain').classList.add('open-left');
-            document.getElementById('r-curtain').classList.add('open-right');
+            document.getElementById('left-curtain').style.transform = 'translateX(-100%)';
+            document.getElementById('right-curtain').style.transform = 'translateX(100%)';
+            document.getElementById('openCurtainBtn').classList.add('hidden');
         }
-
-        // Generate falling hearts
-        function createHeart() {
-            const heart = document.createElement('div');
-            heart.classList.add('heart');
-            heart.innerHTML = '❤️';
-            heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
-            document.getElementById('heart-container').appendChild(heart);
-            setTimeout(() => heart.remove(), 6000);
-        }
-        setInterval(createHeart, 500);
     </script>
 </body>
 </html>
