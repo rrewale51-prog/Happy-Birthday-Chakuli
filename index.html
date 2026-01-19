@@ -3,140 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday Madam Jii</title>
+    <title>Happy Birthday Chakuli</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap');
-        
         body { font-family: 'Quicksand', sans-serif; overflow-x: hidden; background-color: #ffe4e6; transition: all 1.5s ease; }
-        img { image-rendering: -webkit-optimize-contrast; object-fit: cover; }
-
-        /* --- EXCITING COUNTDOWN STYLES --- */
-        #countdown-overlay { 
-            position: fixed; 
-            inset: 0; 
-            background: radial-gradient(circle, #ffafbd 0%, #ffc3a0 100%); 
-            z-index: 1000; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            justify-content: center; 
-        }
-
-        .glass-timer {
-            background: rgba(255, 255, 255, 0.25);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            padding: 3rem;
-            border-radius: 3rem;
-            box-shadow: 0 8px 32px 0 rgba(240, 46, 101, 0.37);
-            text-align: center;
-            border: 2px solid rgba(255, 255, 255, 0.5);
-            animation: float 3s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-15px); }
-        }
-
-        .timer-unit {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            background: white;
-            padding: 1rem;
-            border-radius: 1.5rem;
-            min-width: 80px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-        }
-
-        .timer-num {
-            font-size: 3rem;
-            font-weight: 800;
-            background: linear-gradient(to bottom, #f02e65, #ff7eb3);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            line-height: 1;
-        }
-
-        .timer-label {
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: #f02e65;
-            font-weight: 700;
-            margin-top: 5px;
-        }
-
-        .pulse-ring {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border-radius: 3rem;
-            border: 2px solid #fff;
-            animation: pulse-ring 2s cubic-bezier(0.455, 0.03, 0.515, 0.955) infinite;
-        }
-
-        @keyframes pulse-ring {
-            0% { transform: scale(0.95); opacity: 0.8; }
-            100% { transform: scale(1.15); opacity: 0; }
-        }
-
-        /* --- GAME & SURPRISE STYLES --- */
+        #countdown-overlay { position: fixed; inset: 0; background: radial-gradient(circle, #ffafbd 0%, #ffc3a0 100%); z-index: 1000; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .glass-timer { background: rgba(255, 255, 255, 0.25); backdrop-filter: blur(10px); padding: 3rem; border-radius: 3rem; text-align: center; border: 2px solid rgba(255, 255, 255, 0.5); }
+        .timer-unit { display: flex; flex-direction: column; align-items: center; background: white; padding: 1rem; border-radius: 1.5rem; min-width: 75px; }
+        .timer-num { font-size: 2.5rem; font-weight: 800; color: #f02e65; }
         .heart { position: fixed; top: -10%; color: rgba(255, 105, 180, 0.6); animation: fall linear infinite; z-index: 0; pointer-events: none; }
         @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
-        .neon-glow { text-shadow: 0 0 15px #ff1493, 0 0 30px #ff69b4; color: #ff1493; }
-
-        .slider-viewport { width: 100%; max-width: 350px; overflow: hidden; border-radius: 2.5rem; background: white; box-shadow: 0 25px 50px rgba(0,0,0,0.1); border: 4px solid white; }
+        .slider-viewport { width: 100%; max-width: 350px; overflow: hidden; border-radius: 2.5rem; background: white; box-shadow: 0 25px 50px rgba(0,0,0,0.1); }
         .slider-track { display: flex; width: 300%; transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1); }
         .slide-unit { width: 33.333%; padding: 2.5rem; text-align: center; flex-shrink: 0; }
-
-        .flag { display: inline-block; animation: sway 3s ease-in-out infinite alternate; transform-origin: top; background: #f02e65; color: white; padding: 6px 10px; border-radius: 0 0 8px 8px; margin: 2px; font-weight: bold; }
-        @keyframes sway { from { transform: rotate(-5deg); } to { transform: rotate(5deg); } }
-
         .cake { position: relative; width: 160px; height: 120px; margin: 0 auto; transform: translateY(100px); opacity: 0; transition: all 1s ease; }
         .cake.show { transform: translateY(0); opacity: 1; }
-        .cake-layer { position: absolute; width: 100%; border-radius: 10px; border-bottom: 4px solid rgba(0,0,0,0.1); }
+        .cake-layer { position: absolute; width: 100%; border-radius: 10px; }
         .base { height: 40px; background: #fbcfe8; bottom: 0; }
         .mid { height: 40px; background: #f9a8d4; bottom: 35px; width: 90%; left: 5%; }
         .top { height: 40px; background: #fee2e2; bottom: 70px; width: 80%; left: 10%; }
-        .candle { position: absolute; width: 8px; height: 30px; background: #fbbf24; top: -25px; left: 50%; transform: translateX(-50%); border-radius: 4px; }
-        .flame { position: absolute; width: 12px; height: 18px; background: #f97316; border-radius: 50% 50% 20% 20%; top: -15px; left: -2px; animation: flicker 0.1s infinite alternate; }
-        @keyframes flicker { from { opacity: 0.8; } to { opacity: 1; } }
-
-        .balloon { position: fixed; bottom: -100px; font-size: 3rem; animation: floatUp 6s ease-in forwards; z-index: 100; }
-        @keyframes floatUp { 0% { bottom: -100px; opacity: 1; } 100% { bottom: 120vh; opacity: 0; } }
-        .curtain { transition: transform 2s cubic-bezier(0.4, 0, 0.2, 1); background: #991b1b; z-index: 20; border: 1px solid #7f1d1d; }
+        .flag { display: inline-block; animation: sway 3s ease-in-out infinite alternate; background: #f02e65; color: white; padding: 6px 10px; border-radius: 0 0 8px 8px; margin: 2px; }
+        @keyframes sway { from { transform: rotate(-5deg); } to { transform: rotate(5deg); } }
+        .curtain { transition: transform 2s cubic-bezier(0.4, 0, 0.2, 1); background: #991b1b; z-index: 20; }
+        .scroll-container::-webkit-scrollbar { width: 4px; }
+        .scroll-container::-webkit-scrollbar-thumb { background: #f02e65; border-radius: 10px; }
     </style>
 </head>
 <body>
 
     <div id="countdown-overlay">
-        <div class="relative">
-            <div class="pulse-ring"></div>
-            <div class="glass-timer">
-                <h2 class="text-3xl font-bold text-white mb-8 drop-shadow-md">Something Special Unlocks In...</h2>
-                <div class="flex gap-4">
-                    <div class="timer-unit">
-                        <span id="days" class="timer-num">00</span>
-                        <span class="timer-label">Days</span>
-                    </div>
-                    <div class="timer-unit">
-                        <span id="hours" class="timer-num">00</span>
-                        <span class="timer-label">Hours</span>
-                    </div>
-                    <div class="timer-unit">
-                        <span id="mins" class="timer-num">00</span>
-                        <span class="timer-label">Mins</span>
-                    </div>
-                    <div class="timer-unit">
-                        <span id="secs" class="timer-num">00</span>
-                        <span class="timer-label">Secs</span>
-                    </div>
-                </div>
-                <p class="mt-8 text-white font-medium italic opacity-90">Get ready, Madam Jiii! ✨</p>
+        <div class="glass-timer">
+            <h2 class="text-2xl font-bold text-white mb-8">Something Special Unlocks In...</h2>
+            <div class="flex gap-4">
+                <div class="timer-unit"><span id="days" class="timer-num">00</span><span class="text-[10px] uppercase font-bold text-pink-500">Days</span></div>
+                <div class="timer-unit"><span id="hours" class="timer-num">00</span><span class="text-[10px] uppercase font-bold text-pink-500">Hrs</span></div>
+                <div class="timer-unit"><span id="mins" class="timer-num">00</span><span class="text-[10px] uppercase font-bold text-pink-500">Mins</span></div>
+                <div class="timer-unit"><span id="secs" class="timer-num">00</span><span class="text-[10px] uppercase font-bold text-pink-500">Secs</span></div>
             </div>
         </div>
     </div>
@@ -146,24 +50,19 @@
     <div id="flow-container" class="min-h-screen flex flex-col items-center justify-center p-6 relative z-10">
         
         <div id="stage-start" class="text-center space-y-8 animate__animated animate__fadeIn">
-            <div class="space-y-1">
-                <h1 class="text-2xl font-bold text-gray-800">Happy Birthday <span class="text-pink-600">Madam Jii</span> 🎂</h1>
-                <p class="text-gray-500 text-sm italic">"Your presence makes everything better."</p>
-            </div>
-            <h2 class="text-6xl font-bold neon-glow animate__animated animate__pulse animate__infinite">It's Your Birthday!</h2>
-            <button onclick="toOnboarding()" class="bg-[#f02e65] text-white px-12 py-4 rounded-full text-xl font-bold shadow-2xl mt-8">🎀 Let's Celebrate</button>
+            <h1 class="text-2xl font-bold text-gray-800">Happy Birthday <span class="text-pink-600">Kukuli</span> 🎂</h1>
+            <h2 class="text-6xl font-bold text-pink-500 animate__animated animate__pulse animate__infinite">It's Your Birthday!</h2>
+            <button onclick="toOnboarding()" class="bg-[#f02e65] text-white px-12 py-4 rounded-full text-xl font-bold">🎀 Let's Celebrate</button>
         </div>
 
         <div id="stage-onboarding" class="hidden animate__animated animate__zoomIn">
             <div class="slider-viewport">
                 <div id="track" class="slider-track">
                     <div class="slide-unit space-y-6">
-                        <div class="text-5xl">✨</div>
                         <h3 class="text-2xl font-bold text-gray-800">It's Your Special Day Yeyey!</h3>
                         <button onclick="move(1)" class="bg-[#f02e65] text-white w-full py-4 rounded-2xl font-bold">Next</button>
                     </div>
                     <div class="slide-unit space-y-6">
-                        <div class="text-5xl">✨</div>
                         <h3 class="text-xl font-bold text-gray-800">Do you wanna see what I made??</h3>
                         <div class="flex gap-4">
                             <button onclick="move(2)" class="bg-[#f02e65] text-white flex-1 py-4 rounded-2xl font-bold">Yes!</button>
@@ -171,26 +70,18 @@
                         </div>
                     </div>
                     <div class="slide-unit space-y-6">
-                        <div class="text-5xl">✨</div>
-                        <h3 class="text-xl font-bold text-gray-800">Have a look at it, Madam Jiii</h3>
+                        <h3 class="text-xl font-bold text-gray-800">Have a look at it, Kuski Jiii</h3>
                         <button onclick="toParty()" class="bg-[#f02e65] text-white w-full py-4 rounded-2xl font-bold">Let's Go! 🎉</button>
                     </div>
-                </div>
-                <div class="flex justify-center gap-2 pb-6">
-                    <div id="dot0" class="w-2 h-2 rounded-full bg-pink-500"></div>
-                    <div id="dot1" class="w-2 h-2 rounded-full bg-gray-200"></div>
-                    <div id="dot2" class="w-2 h-2 rounded-full bg-gray-200"></div>
                 </div>
             </div>
         </div>
 
         <div id="stage-party" class="hidden w-full flex flex-col items-center">
-            <h2 id="party-title" class="text-3xl font-bold text-pink-600 mb-6">Let's Celebrate! 🥳</h2>
-            <div id="light-row" class="flex gap-2 h-6 mb-12"></div>
-            <button id="partyBtn" onclick="advanceParty()" class="bg-yellow-400 text-gray-900 px-10 py-3 rounded-full font-bold shadow-xl z-50">💡 Turn On the Lights</button>
-            <div id="banner-area" class="mt-12 flex flex-wrap justify-center gap-1"></div>
-            <div id="cake" class="cake mt-12">
-                <div class="candle"><div class="flame"></div></div>
+            <div id="light-row" class="flex gap-2 mb-8"></div>
+            <button id="partyBtn" onclick="advanceParty()" class="bg-yellow-400 text-gray-900 px-10 py-3 rounded-full font-bold z-50">💡 Turn On the Lights</button>
+            <div id="banner-area" class="mt-8 flex flex-wrap justify-center"></div>
+            <div id="cake" class="cake mt-8">
                 <div class="cake-layer base"></div>
                 <div class="cake-layer mid"></div>
                 <div class="cake-layer top"></div>
@@ -198,126 +89,108 @@
         </div>
 
         <div id="stage-letter" class="hidden w-full max-w-sm flex flex-col items-center animate__animated animate__fadeIn">
-            <h2 class="text-2xl font-bold text-pink-600 mb-6">💌 A Message From My Heart</h2>
-            <div class="relative w-full h-96 bg-white rounded-[2.5rem] shadow-2xl overflow-hidden border-4 border-white">
+            <div class="relative w-full h-[550px] bg-white rounded-[2.5rem] shadow-2xl overflow-hidden border-4 border-white">
                 <div id="curt-l" class="curtain absolute inset-y-0 left-0 w-1/2"></div>
                 <div id="curt-r" class="curtain absolute inset-y-0 right-0 w-1/2"></div>
-                <div class="p-8 h-full overflow-y-auto text-gray-700 italic text-sm leading-relaxed">
-                    <p class="font-bold text-pink-600 text-lg mb-4">Dearest Madam Jiii,</p>
-                    <p>Enter your heartfelt message here. Make it special!</p>
-                    <p class="mt-8 font-bold text-right text-pink-500">— [Your Name]</p>
+                
+                <div id="scroll-hint" class="absolute bottom-4 left-1/2 -translate-x-1/2 flex flex-col items-center opacity-0 pointer-events-none z-30">
+                    <span class="text-pink-500 text-[10px] font-bold mb-1">Scroll to read</span>
+                    <div class="text-pink-500 animate-bounce">▼</div>
+                </div>
+
+                <div id="letter-scroll" onscroll="hideHint()" class="scroll-container p-8 h-full overflow-y-auto text-gray-700 leading-relaxed text-sm">
+                    <h2 class="text-xl font-bold text-pink-600 mb-4">🎂 A Journey Toward the Light: The Complete Tribute</h2>
+                    
+                    <p class="mb-4"><b>Happy Birthday, Shraddha!</b> 🌟 Today is a gentle reminder that while part of the journey is the end, every ending is simply the threshold of a new adventure. We often look back at what we’ve left behind, but remember: <b>What is grief, if not love persevering?</b> 🤍 Those no longer by our side become the 'spirit' in our music and the 'spark' in our souls. 🎶✨ A thing isn’t beautiful because it lasts; it is beautiful because it happened. So, take those lessons, tuck the memories into your heart, and thank you for the adventure—now, go start a new one! 🚀✨</p>
+
+                    <h3 class="text-lg font-bold text-pink-500 mt-6 mb-2">🗺️ The Geometry of Destiny</h3>
+                    <p class="mb-4">Destiny doesn’t just write love stories; it writes the epic sagas of friendship too. I am blessed that throughout my entire life, there is one person I can call my best friend. <b>Ani Kay jhal jar me vichar kela ke ektra kahich chances nahi?</b> Even if the story remains <i>Apurna</i> (incomplete), I still won because I found you. <b>Lihinarya ne nashibat nahi pan bhetavla tar hota.</b> Maybe footprints fade at the waterline, and salt gathers where the sea withdraws, but I’ve learned that there are things more essential than just "love"—and that is a friend like you. Family and relatives are given, but we <i>choose</i> our friends. Out of nowhere, you chose a person like me to be your friend. Not just a friend, but your <b>safe place</b>. You had your own wars, your own problems, but you still made time for me and I am forever grateful for this, <b>Chakuli</b>. 🌊🐚</p>
+
+                    <h3 class="text-lg font-bold text-pink-500 mt-6 mb-2">🥥 The Girl with the "Naral" Heart</h3>
+                    <p class="mb-4">Do you remember our first interaction? You were explaining a plot to the team, and I was wondering, <i>"Do people even watch movies like that anymore?"</i> 😂 But then, as we left the office, I asked you: <b>"Jauya ka Sudamati Kamat kade Kaakan denya saathi?"</b> 🥥</p>
+                    <p class="mb-4">You laughed, and that was the first time I saw your smile. It’s a smile like no other—like a coconut fruit; tough and protective on the outside, but fragile and pure like a child on the inside. 🥥❤️</p>
+
+                    <h3 class="text-lg font-bold text-pink-500 mt-6 mb-2">🕊️ The Saturday That Froze Time</h3>
+                    <p class="mb-4">Last year had its havoc, but it gave me a Saturday I will never forget. ⛩️ From the peace of <b>Siddhivinayak</b> to the breeze at Chowpatty, sharing headphones and listening to <b>"Kitida Navyane Tula Aathvave"</b>... it felt like time froze. My priority was sitting right next to me, sharing the exact same emotion.</p>
+                    <p class="mb-4">Even when you were exhausted, you didn't hesitate to say, <b>"Chal Mathat Jauya."</b> 📿 Reaching Swami’s Math late that night was a blessing. I’ve made a promise to myself: whenever you are going through a tough phase, I will revisit the places where we shared our strongest connection to pray for you. That is my guarantee to you. 🚩🙏</p>
+
+                    <h3 class="text-lg font-bold text-pink-500 mt-6 mb-2">✨ No One Replaces You</h3>
+                    <p class="mb-4">You are irreplaceable—not today, not ever. No matter who enters my life, no one feels like you. These are the years where we become who we are meant to be. <b>Just be careful who you change into.</b> 🦋 Distance comes in miles and in hearts, but I believe our bond makes distance meaningless. If we ever drift, just look back at our "old little memories" and give me a call. I can lose anything, but I don’t ever want to lose a person like you. 🚫👤</p>
+
+                    <hr class="my-6 border-pink-100">
+
+                    <h3 class="text-lg font-bold text-pink-600 mb-2">🌌 Ani Move On?? Te Kay ast??</h3>
+                    <p class="mb-4">Mala fakt hech mahit ahe...<br>
+                    <i>"Vaat pahavi Janma itki, marna itki bhet havi.. janmo janmi talhathavar ek tujhi he resh havi."</i> ✍️📖</p>
+                    
+                    <p class="mb-4 font-bold text-xs text-pink-500">Actually, I heard these lines somewhere, and they felt like they were written just for us. I want to share this poem with you because it captures everything I feel about our connection across lifetimes:</p>
+
+                    <div class="bg-pink-50 p-5 rounded-2xl italic text-gray-800 text-[13px] mb-6 space-y-3 border-l-4 border-pink-400">
+                        <p>He punarjanmachi bhakad Katha khari vyavi, Nidan pudhcya janmat tu Majhi asavi. 🥀</p>
+                        <p>Puna pavsachi sar barsavi, me yaav bhijat ani tula majhi chatri dyavi. ☔</p>
+                        <p>Nidan pudchya janmat ek tar majhi paristithi changli asavi, Nahi tar mag tujhi farshi kahi apeksha nasavi.</p>
+                        <p>Hya janmat fakt punya karel, Ishwar mazya punyacha fal mala deil ka? Nidan pudhil janmat tari tyala tula maja karta yeil ka? 🚩</p>
+                        <p>Bhajitlya bhajit sthan fakt methicha asava, Nidan pudhchya janmat tujya ukhanya madhe fakt ani fakt majh naav asava. 💍</p>
+                        <p>He punarjanmachi bhakad Katha khari vyavi ani pudchya janmi tu Majhi asavi.</p>
+                    </div>
+
+                    <blockquote class="border-t border-b border-pink-100 py-4 my-6 text-center italic font-bold text-pink-500">
+                        "I’ll wait where stars forget to shine, and sing to me when silence sleeps." 🌌
+                    </blockquote>
+                    
+                    <p class="mb-6">In the next universe, in the next life, please find me sooner. I want to be able to tell the world that I have no incomplete wishes left. 🌠</p>
+                    
+                    <p class="text-right font-bold text-pink-600 text-lg pb-10">Happy Birthday, Shraddha. <br> May this year be yours, and yours alone. 🎂🎈✨</p>
                 </div>
             </div>
-            <button id="openBtn" onclick="openCurtains()" class="mt-4 text-pink-500 font-bold animate-bounce underline">✨ Click to Open ✨</button>
-            <button id="memBtn" onclick="toMemories()" class="hidden mt-10 bg-[#f02e65] text-white px-10 py-3 rounded-full font-bold shadow-lg">📷 View Our Memories</button>
+            <button id="openBtn" onclick="openCurtains()" class="mt-4 text-pink-500 font-bold underline">✨ Click to Open ✨</button>
+            <button id="memBtn" onclick="toMemories()" class="hidden mt-6 bg-[#f02e65] text-white px-8 py-3 rounded-full font-bold">📷 View Our Memories</button>
         </div>
 
-        <div id="stage-memories" class="hidden w-full max-w-4xl flex flex-col items-center space-y-12 pb-20 animate__animated animate__fadeInRight">
-            <h2 class="text-4xl font-bold text-pink-600 italic">📷 Our Beautiful Memories</h2>
-            <div class="w-full max-w-2xl px-4">
-                <div class="bg-white p-4 shadow-2xl rounded-3xl transform rotate-1">
-                    <video id="memoryVideo" controls class="w-full rounded-2xl">
-                        <source src="birthday_video.mp4" type="video/mp4">
-                    </video>
-                </div>
+        <div id="stage-memories" class="hidden w-full max-w-4xl flex flex-col items-center space-y-8 pb-20 animate__animated animate__fadeInRight">
+            <h2 class="text-2xl font-bold text-pink-600">📷 Our Memories</h2>
+            <div class="bg-white p-2 shadow-xl rounded-3xl w-full max-w-md">
+                <video id="memoryVideo" controls class="w-full rounded-2xl"><source src="birthday_video.mp4" type="video/mp4"></video>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 w-full px-4">
-                <div class="bg-white p-3 shadow-xl transform rotate-2"><img src="photo1.jpg" class="rounded w-full h-64"></div>
-                <div class="bg-white p-3 shadow-xl transform -rotate-3"><img src="photo2.jpg" class="rounded w-full h-64"></div>
-                <div class="bg-white p-3 shadow-xl transform rotate-1"><img src="photo3.jpg" class="rounded w-full h-64"></div>
-            </div>
-            <p class="text-3xl text-pink-600 font-bold">💕 Forever Yours — [Your Name] 💕</p>
+            <p class="text-xl text-pink-600 font-bold">💕 Forever Yours 💕</p>
         </div>
     </div>
 
     <audio id="player" src="music.mp3" loop></audio>
 
     <script>
-        // --- SET BIRTHDAY DATE HERE (Year, Month Index 0-11, Day, Hour, Minute) ---
         const birthdayDate = new Date(2026, 0, 19, 0, 0, 0).getTime();
-
-        const timer = setInterval(function() {
+        setInterval(() => {
             const now = new Date().getTime();
-            const distance = birthdayDate - now;
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const mins = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const secs = Math.floor((distance % (1000 * 60)) / 1000);
-
-            document.getElementById("days").innerText = days.toString().padStart(2, '0');
-            document.getElementById("hours").innerText = hours.toString().padStart(2, '0');
-            document.getElementById("mins").innerText = mins.toString().padStart(2, '0');
-            document.getElementById("secs").innerText = secs.toString().padStart(2, '0');
-
-            if (distance < 0) {
-                clearInterval(timer);
-                const ov = document.getElementById("countdown-overlay");
-                ov.classList.add('animate__animated', 'animate__fadeOut');
-                setTimeout(() => ov.style.display = "none", 1000);
-            }
+            const dist = birthdayDate - now;
+            document.getElementById("days").innerText = Math.max(0, Math.floor(dist / 86400000)).toString().padStart(2, '0');
+            document.getElementById("hours").innerText = Math.max(0, Math.floor((dist % 86400000) / 3600000)).toString().padStart(2, '0');
+            document.getElementById("mins").innerText = Math.max(0, Math.floor((dist % 3600000) / 60000)).toString().padStart(2, '0');
+            document.getElementById("secs").innerText = Math.max(0, Math.floor((dist % 60000) / 1000)).toString().padStart(2, '0');
+            if (dist < 0) document.getElementById("countdown-overlay").style.display = "none";
         }, 1000);
 
-        // --- PARTICLE EFFECT ---
-        setInterval(() => {
-            const h = document.createElement('div');
-            h.innerHTML = Math.random() > 0.5 ? '❤️' : '💖'; h.className = 'heart';
-            h.style.left = Math.random() * 100 + 'vw';
-            h.style.animationDuration = (Math.random() * 3 + 4) + 's';
-            document.getElementById('particles').appendChild(h);
-            setTimeout(() => h.remove(), 7000);
-        }, 400);
-
-        // --- FLOW LOGIC ---
         function toOnboarding() { document.getElementById('stage-start').classList.add('hidden'); document.getElementById('stage-onboarding').classList.remove('hidden'); }
-        function move(idx) {
-            document.getElementById('track').style.transform = `translateX(-${idx * 33.333}%)`;
-            for(let i=0; i<3; i++) document.getElementById(`dot${i}`).className = `w-2 h-2 rounded-full ${i===idx ? 'bg-pink-500' : 'bg-gray-200'}`;
-        }
-        function dodge() {
-            const btn = document.getElementById('noBtn'); btn.style.position = 'absolute';
-            btn.style.left = Math.random() * 80 + '%'; btn.style.top = Math.random() * 80 + '%';
-        }
+        function move(idx) { document.getElementById('track').style.transform = `translateX(-${idx * 33.333}%)`; }
+        function dodge() { const btn = document.getElementById('noBtn'); btn.style.position = 'absolute'; btn.style.left = Math.random() * 70 + '%'; btn.style.top = Math.random() * 70 + '%'; }
         function toParty() { document.getElementById('stage-onboarding').classList.add('hidden'); document.getElementById('stage-party').classList.remove('hidden'); }
-        
+
         let pStep = 0;
         function advanceParty() {
             pStep++;
             const btn = document.getElementById('partyBtn');
-            if(pStep === 1) { 
-                document.body.style.backgroundColor = "#2d1b4d"; document.getElementById('party-title').style.color = "white";
-                for(let i=0; i<12; i++) {
-                    setTimeout(() => {
-                        const l = document.createElement('div');
-                        l.className = "w-4 h-4 rounded-full shadow-[0_0_15px_white] animate__animated animate__flash animate__infinite";
-                        l.style.backgroundColor = ['#f43f5e', '#fbbf24', '#22c55e', '#3b82f6'][i%4];
-                        document.getElementById('light-row').appendChild(l);
-                    }, i * 200);
-                }
-                btn.innerText = "🎵 Play Music";
-            } else if(pStep === 2) {
-                document.getElementById('player').play(); btn.innerText = "🎨 Decorate";
-            } else if(pStep === 3) { 
-                "HAPPY BIRTHDAY".split('').forEach((c, i) => {
-                    const f = document.createElement('div');
-                    f.innerText = c === ' ' ? '\u00A0' : c; f.className = "flag";
-                    f.style.animationDelay = `${i * 0.1}s`;
+            if(pStep === 1) { document.body.style.backgroundColor = "#2d1b4d"; btn.innerText = "🎵 Play Music"; }
+            else if(pStep === 2) { document.getElementById('player').play(); btn.innerText = "🎨 Decorate"; }
+            else if(pStep === 3) { 
+                "HAPPY BIRTHDAY".split('').forEach(c => {
+                    const f = document.createElement('div'); f.innerText = c; f.className = "flag";
                     document.getElementById('banner-area').appendChild(f);
                 });
-                document.getElementById('cake').classList.add('show'); btn.innerText = "🎈 Fly The Balloons";
-            } else if(pStep === 4) {
-                for(let i=0; i<25; i++) {
-                    setTimeout(() => {
-                        const b = document.createElement('div'); b.className = "balloon"; b.innerText = "🎈";
-                        b.style.left = Math.random() * 90 + 'vw'; document.body.appendChild(b);
-                        setTimeout(() => b.remove(), 6000);
-                    }, i * 200);
-                }
-                btn.innerText = "Well, I have a message for you Madam Ji";
-            } else {
-                document.getElementById('stage-party').classList.add('hidden');
-                document.getElementById('stage-letter').classList.remove('hidden');
-                document.body.style.backgroundColor = "#ffe4e6";
+                document.getElementById('cake').classList.add('show');
+                btn.innerText = "🎈 Fly Balloons";
             }
+            else if(pStep === 4) { btn.innerText = "Read My Message"; }
+            else { document.getElementById('stage-party').classList.add('hidden'); document.getElementById('stage-letter').classList.remove('hidden'); document.body.style.backgroundColor = "#ffe4e6"; }
         }
 
         function openCurtains() {
@@ -325,14 +198,18 @@
             document.getElementById('curt-r').style.transform = "translateX(100%)";
             document.getElementById('openBtn').classList.add('hidden');
             document.getElementById('memBtn').classList.remove('hidden');
+            document.getElementById('scroll-hint').style.opacity = "1";
         }
 
-        function toMemories() {
-            document.getElementById('stage-letter').classList.add('hidden');
-            document.getElementById('stage-memories').classList.remove('hidden');
-            document.getElementById('memoryVideo').play(); 
-            window.scrollTo(0,0);
-        }
+        function hideHint() { document.getElementById('scroll-hint').style.opacity = "0"; }
+        function toMemories() { document.getElementById('stage-letter').classList.add('hidden'); document.getElementById('stage-memories').classList.remove('hidden'); document.getElementById('memoryVideo').play(); window.scrollTo(0,0); }
+
+        setInterval(() => {
+            const h = document.createElement('div'); h.innerHTML = '❤️'; h.className = 'heart';
+            h.style.left = Math.random() * 100 + 'vw'; h.style.animationDuration = (Math.random() * 2 + 3) + 's';
+            document.getElementById('particles').appendChild(h);
+            setTimeout(() => h.remove(), 5000);
+        }, 400);
     </script>
 </body>
 </html>
