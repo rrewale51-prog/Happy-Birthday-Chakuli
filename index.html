@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Happy Birthday Shraddha</title>
+    <title>Happy Birthday Madam Jii</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <style>
@@ -16,32 +16,39 @@
             margin: 0;
             padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
         }
+
         .cursive { font-family: 'Dancing Script', cursive; }
-        
-        /* --- GLASS COUNTDOWN --- */
+
+        /* --- EXCITING RESPONSIVE COUNTDOWN --- */
         #countdown-overlay { 
-            position: fixed; inset: 0; background: radial-gradient(circle, #ffafbd 0%, #ffc3a0 100%); 
+            position: fixed; inset: 0; 
+            background: radial-gradient(circle, #ffafbd 0%, #ffc3a0 100%); 
             z-index: 1000; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px;
         }
+
         .glass-timer {
             background: rgba(255, 255, 255, 0.25); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
             padding: 2rem 1rem; border-radius: 2.5rem; box-shadow: 0 8px 32px 0 rgba(240, 46, 101, 0.3);
             text-align: center; border: 2px solid rgba(255, 255, 255, 0.5); width: 100%; max-width: 400px; animation: float 3s ease-in-out infinite;
         }
+
         .timer-container { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 20px; }
-        .timer-unit { background: white; padding: 1rem 0.5rem; border-radius: 1.2rem; display: flex; flex-direction: column; align-items: center; }
-        .timer-num { font-size: 1.8rem; font-weight: 800; color: #f02e65; line-height: 1.2; }
-        .timer-label { font-size: 0.6rem; text-transform: uppercase; color: #f02e65; font-weight: 700; }
+
+        @media (max-width: 380px) {
+            .timer-container { gap: 5px; }
+            .timer-unit { padding: 0.5rem !important; }
+            .timer-num { font-size: 1.8rem !important; }
+        }
+
+        .timer-unit { background: white; padding: 1rem 0.5rem; border-radius: 1.2rem; display: flex; flex-direction: column; align-items: center; box-shadow: 0 10px 15px rgba(0,0,0,0.05); }
+        .timer-num { font-size: 2.2rem; font-weight: 800; color: #f02e65; line-height: 1.2; }
+        .timer-label { font-size: 0.6rem; text-transform: uppercase; color: #f02e65; font-weight: 700; margin-top: 2px; }
+
+        /* --- MESSAGE SLIDE STYLING --- */
+        .message-box { text-align: left; line-height: 1.7; color: #4b5563; font-size: 0.95rem; }
+        .marathi-quote { border-left: 4px solid #f02e65; background: #fff5f7; padding: 1rem; font-style: italic; margin: 1rem 0; border-radius: 8px; }
 
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
-
-        /* --- CURTAINS & LETTER --- */
-        .curtain { transition: transform 2.0s cubic-bezier(0.4, 0, 0.2, 1); background: #991b1b; z-index: 20; border: 1px solid #7f1d1d; }
-        .letter-content { line-height: 1.8; color: #374151; font-size: 1rem; text-align: left; }
-        .letter-content b { color: #f02e65; }
-        .marathi-poem { background: #fff5f7; border-left: 4px solid #f02e65; padding: 1.5rem; border-radius: 0.75rem; font-style: italic; margin: 1.5rem 0; }
-        
-        /* --- HEART RAIN --- */
         .heart { position: fixed; top: -10%; color: rgba(255, 105, 180, 0.6); animation: fall linear infinite; z-index: 0; pointer-events: none; }
         @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
     </style>
@@ -50,14 +57,14 @@
 
     <div id="countdown-overlay">
         <div class="glass-timer">
-            <h2 class="text-xl font-bold text-white mb-4">Something Special Unlocks In...</h2>
+            <h2 class="text-xl md:text-2xl font-bold text-white mb-4 drop-shadow-md">Unlocking In...</h2>
             <div class="timer-container">
                 <div class="timer-unit"><span id="days" class="timer-num">00</span><span class="timer-label">Days</span></div>
-                <div class="timer-unit"><span id="hours" class="timer-num">00</span><span class="timer-label">Hrs</span></div>
+                <div class="timer-unit"><span id="hours" class="timer-num">00</span><span class="timer-label">Hours</span></div>
                 <div class="timer-unit"><span id="mins" class="timer-num">00</span><span class="timer-label">Mins</span></div>
                 <div class="timer-unit"><span id="secs" class="timer-num">00</span><span class="timer-label">Secs</span></div>
             </div>
-            <p class="mt-6 text-white text-sm italic">Get ready, Shraddha! ✨</p>
+            <p class="mt-6 text-white text-sm font-medium italic opacity-90">Get ready, Madam Jiii! ✨</p>
         </div>
     </div>
 
@@ -66,87 +73,77 @@
     <div id="flow-container" class="min-h-screen flex flex-col items-center justify-center p-4 relative z-10">
         
         <div id="stage-start" class="text-center space-y-6 animate__animated animate__fadeIn">
-            <h1 class="text-xl font-bold text-gray-800">Happy Birthday <span class="text-pink-600">Shraddha</span> 🎂</h1>
-            <h2 class="text-5xl font-bold text-pink-500 animate__animated animate__pulse animate__infinite">It's Your Day!</h2>
-            <button onclick="toLetter()" class="bg-[#f02e65] text-white px-10 py-4 rounded-full text-lg font-bold shadow-xl">🎀 Open Your Gift</button>
+            <h1 class="text-xl font-bold text-gray-800">Happy Birthday <span class="text-pink-600">Madam Jii</span> 🎂</h1>
+            <h2 class="text-5xl font-bold text-pink-500 animate__animated animate__pulse animate__infinite" style="text-shadow: 0 0 10px #ff69b4;">It's Your Day!</h2>
+            <button onclick="toOnboarding()" class="bg-[#f02e65] text-white px-10 py-4 rounded-full text-lg font-bold shadow-xl">🎀 Start Surprise</button>
         </div>
 
-        <div id="stage-letter" class="hidden w-full max-w-2xl flex flex-col items-center animate__animated animate__fadeIn">
-            <h2 class="text-2xl font-bold text-pink-600 mb-6 cursive text-4xl text-center">A Journey Toward the Light</h2>
-            
-            <div class="relative w-full h-[75vh] bg-white rounded-[2rem] shadow-2xl overflow-hidden border-4 border-white">
-                <div id="curt-l" class="curtain absolute inset-y-0 left-0 w-1/2"></div>
-                <div id="curt-r" class="curtain absolute inset-y-0 right-0 w-1/2"></div>
-                
-                <div class="p-8 h-full overflow-y-auto letter-content">
+        <div id="stage-onboarding" class="hidden w-full max-w-lg animate__animated animate__zoomIn">
+            <div class="bg-white rounded-[2.5rem] shadow-2xl overflow-hidden border-4 border-white">
+                <div id="track" class="flex transition-transform duration-700 w-[400%]">
                     
-                    <h3 class="font-bold text-pink-600 text-2xl mb-6">Happy Birthday, Shraddha! 🌟</h3>
-                    
-                    <p class="mb-6">Today is a gentle reminder that while part of the journey is the end, every ending is simply the threshold of a new adventure. We often look back at what we’ve left behind, but remember: <b>What is grief, if not love persevering?</b> 🤍 Those no longer by our side become the 'spirit' in our music and the 'spark' in our souls. 🎶✨ A thing isn’t beautiful because it lasts; it is beautiful because it happened. So, take those lessons, tuck the memories into your heart, and thank you for the adventure—now, go start a new one! 🚀✨</p>
-
-                    <h4 class="font-bold text-pink-500 text-xl mt-8 mb-4">🗺️ The Geometry of Destiny</h4>
-                    <p class="mb-6">Destiny doesn’t just write love stories; it writes the epic sagas of friendship too. I am blessed that throughout my entire life, there is one person I can call my best friend. <b>Ani Kay jhal jar me vichar kela ke ektra kahich chances nahi?</b> Even if the story remains <i>Apurna</i> (incomplete), I still won because I found you. <b>Lihinarya ne nashibat nahi pan bhetavla tar hota.</b> Maybe footprints fade at the waterline, and salt gathers where the sea withdraws, but I’ve learned that there are things more essential than just "love"—and that is a friend like you. Family and relatives are given, but we <i>choose</i> our friends. Out of nowhere, you chose a person like me to be your friend. Not just a friend, but your <b>safe place</b>. You had your own wars, your own problems, but you still made time for me and I am forever grateful for this, <b>Chakuli</b>. 🌊🐚</p>
-
-                    <h4 class="font-bold text-pink-500 text-xl mt-8 mb-4">🥥 The Girl with the "Naral" Heart</h4>
-                    <p class="mb-6">Do you remember our first interaction? You were explaining a plot to the team, and I was wondering, <i>"Do people even watch movies like that anymore?"</i> 😂 But then, as we left the office, I asked you: <b>"Jauya ka Sudamati Kamat kade Kaakan denya saathi?"</b> 🥥</p>
-                    
-                    <p class="mb-6">You laughed, and that was the first time I saw your smile. It’s a smile like no other—like a coconut fruit; tough and protective on the outside, but fragile and pure like a child on the inside. 🥥❤️</p>
-
-                    <h4 class="font-bold text-pink-500 text-xl mt-8 mb-4">🕊️ The Saturday That Froze Time</h4>
-                    <p class="mb-6">Last year had its havoc, but it gave me a Saturday I will never forget. ⛩️ From the peace of <b>Siddhivinayak</b> to the breeze at Chowpatty, sharing headphones and listening to <b>"Kitida Navyane Tula Aathvave"</b>... it felt like time froze. My priority was sitting right next to me, sharing the exact same emotion.</p>
-                    
-                    <p class="mb-6">Even when you were exhausted, you didn't hesitate to say, <b>"Chal Mathat Jauya."</b> 📿 Reaching Swami’s Math late that night was a blessing. I’ve made a promise to myself: whenever you are going through a tough phase, I will revisit the places where we shared our strongest connection to pray for you. That is my guarantee to you. 🚩🙏</p>
-
-                    <h4 class="font-bold text-pink-500 text-xl mt-8 mb-4">✨ No One Replaces You</h4>
-                    <p class="mb-6">You are irreplaceable—not today, not ever. No matter who enters my life, no one feels like you. These are the years where we become who we are meant to be. <b>Just be careful who you change into.</b> 🦋 Distance comes in miles and in hearts, but I believe our bond makes distance meaningless. If we ever drift, just look back at our "old little memories" and give me a call. I can lose anything, but I don’t ever want to lose a person like you. 🚫👤</p>
-
-                    <hr class="my-8 border-pink-100">
-                    
-                    <h4 class="font-bold text-pink-600 text-2xl mb-6">🌌 Ani Move On?? Te Kay ast??</h4>
-                    <p class="mb-4">Mala fakt hech mahit ahe...<br>
-                    <span class="italic font-bold">"Vaat pahavi Janma itki, marna itki bhet havi.. janmo janmi talhathavar ek tujhi he resh havi."</span> ✍️📖</p>
-                    
-                    <p class="mb-6">Actually, I heard these lines somewhere, and they felt like they were written just for us. I want to share this poem with you because it captures everything I feel about our connection across lifetimes:</p>
-
-                    <div class="marathi-poem space-y-3 text-gray-800">
-                        <p>He punarjanmachi bhakad Katha khari vyavi, Nidan pudhcya janmat tu Majhi asavi. 🥀</p>
-                        <p>Puna pavsachi sar barsavi, me yaav bhijat ani tula majhi chatri dyavi. ☔</p>
-                        <p>Nidan pudchya janmat ek tar majhi paristithi changli asavi, Nahi tar mag tujhi farshi kahi apeksha nasavi.</p>
-                        <p>Hya janmat fakt punya karel, Ishwar mazya punyacha fal mala deil ka? Nidan pudhil janmat tari tyala tula maja karta yeil ka? 🚩</p>
-                        <p>Bhajitlya bhajit sthan fakt methicha asava, Nidan pudhchya janmat tujya ukhanya madhe fakt ani fakt majh naav asava. 💍</p>
-                        <p>He punarjanmachi bhakad Katha khari vyavi ani pudchya janmi tu Majhi asavi.</p>
+                    <div class="w-1/4 p-8 text-center space-y-4">
+                        <div class="text-5xl">✨</div>
+                        <h3 class="text-2xl font-bold text-gray-800">Ready for the magic?</h3>
+                        <p class="text-gray-500">I've put my heart into this for you.</p>
+                        <button onclick="move(1)" class="bg-[#f02e65] text-white w-full py-4 rounded-2xl font-bold text-lg">Next</button>
                     </div>
 
-                    <p class="italic font-bold text-pink-500 text-center mb-8 px-4">"I’ll wait where stars forget to shine, and sing to me when silence sleeps." 🌌</p>
-                    
-                    <p class="mb-8">In the next universe, in the next life, please find me sooner. I want to be able to tell the world that I have no incomplete wishes left. 🌠</p>
-                    
-                    <div class="text-right mt-12 pb-10">
-                        <p class="font-bold text-pink-600 text-2xl">Happy Birthday, Shraddha. 💕</p>
+                    <div class="w-1/4 p-8 text-center space-y-4">
+                        <div class="text-5xl">💝</div>
+                        <h3 class="text-2xl font-bold text-gray-800">Every word is true.</h3>
+                        <p class="text-gray-500">Just for you, Shraddha.</p>
+                        <button onclick="move(2)" class="bg-[#f02e65] text-white w-full py-4 rounded-2xl font-bold text-lg">Continue</button>
                     </div>
+
+                    <div class="w-1/4 p-6 overflow-y-auto max-h-[70vh] message-box">
+                        <h3 class="text-xl font-bold text-pink-600 mb-4 cursive text-3xl">A Journey Toward the Light</h3>
+                        <p class="mb-4"><b>Happy Birthday, Shraddha!</b> 🌟 Today is a gentle reminder that while part of the journey is the end, every ending is simply the threshold of a new adventure. We often look back at what we’ve left behind, but remember: <b>What is grief, if not love persevering?</b> 🤍</p>
+                        
+                        <h4 class="font-bold text-pink-500 mt-4 mb-1">🗺️ The Geometry of Destiny</h4>
+                        <p class="mb-4 text-sm">Destiny doesn’t just write love stories; it writes the epic sagas of friendship too. I am blessed that throughout my entire life, there is one person I can call my best friend. <b>Ani Kay jhal jar me vichar kela ke ektra kahich chances nahi?</b> Even if the story remains <i>Apurna</i> (incomplete), I still won because I found you.</p>
+                        
+                        <h4 class="font-bold text-pink-500 mt-4 mb-1">🥥 The Girl with the "Naral" Heart</h4>
+                        <p class="mb-4 text-sm">Do you remember our first interaction? I asked you: <b>"Jauya ka Sudamati Kamat kade Kaakan denya saathi?"</b> 🥥 It’s a smile like no other—like a coconut fruit; tough and protective on the outside, but fragile and pure like a child on the inside. 🥥❤️</p>
+
+                        <h4 class="font-bold text-pink-500 mt-4 mb-1">🕊️ The Saturday That Froze Time</h4>
+                        <p class="mb-4 text-sm">Last year had its havoc, but it gave me a Saturday I will never forget. ⛩️ From Siddhivinayak to the breeze at Chowpatty, sharing headphones and listening to <b>"Kitida Navyane Tula Aathvave"</b>... it felt like time froze.</p>
+
+                        <h4 class="font-bold text-pink-500 mt-4 mb-1">🌌 Ani Move On??</h4>
+                        <div class="marathi-quote text-sm">
+                            "Vaat pahavi Janma itki, marna itki bhet havi.. janmo janmi talhathavar ek tujhi he resh havi." ✍️📖<br><br>
+                            He punarjanmachi bhakad Katha khari vyavi,<br>
+                            Nidan pudhcya janmat tu Majhi asavi. 🥀<br>
+                            Nidan pudhchya janmat tujya ukhanya madhe fakt ani fakt majh naav asava. 💍
+                        </div>
+
+                        <p class="mb-6 text-sm"><b>Happy Birthday, My Forever.</b> May this year be yours, and yours alone. 🎂🎈</p>
+                        
+                        <button onclick="move(3)" class="bg-[#f02e65] text-white w-full py-4 rounded-2xl font-bold">See Our Memories 📷</button>
+                    </div>
+
+                    <div class="w-1/4 p-8 text-center space-y-4">
+                        <div class="text-5xl">🎉</div>
+                        <h3 class="text-2xl font-bold text-gray-800">Final Surprise!</h3>
+                        <p class="text-gray-500">Ready to see the gallery?</p>
+                        <button onclick="toParty()" class="bg-[#f02e65] text-white w-full py-4 rounded-2xl font-bold text-lg">Open Gallery 🎉</button>
+                    </div>
+
                 </div>
             </div>
-
-            <button id="openBtn" onclick="openCurtains()" class="mt-8 text-pink-500 font-bold animate-bounce underline text-lg">✨ Open the Tribute ✨</button>
-            <button id="memBtn" onclick="toMemories()" class="hidden mt-8 bg-[#f02e65] text-white px-12 py-4 rounded-full text-xl font-bold shadow-lg animate__animated animate__fadeInUp">📷 View Our Memories</button>
         </div>
 
-        <div id="stage-memories" class="hidden w-full max-w-lg flex flex-col items-center space-y-10 pb-20">
-            <h2 class="text-3xl font-bold text-pink-600 cursive text-4xl">Our Beautiful Memories</h2>
-            
-            <div class="w-full bg-white p-4 shadow-2xl rounded-3xl">
-                <video id="memoryVideo" controls class="w-full rounded-2xl bg-black">
-                    <source src="birthday_video.mp4" type="video/mp4">
-                </video>
+        <div id="stage-memories" class="hidden w-full max-w-md flex flex-col items-center space-y-6 pb-20">
+            <h2 class="text-3xl font-bold text-pink-600 cursive">📷 Our Memories</h2>
+            <video id="memoryVideo" controls class="w-full rounded-2xl shadow-lg border-4 border-white">
+                <source src="birthday_video.mp4" type="video/mp4">
+            </video>
+            <div class="grid grid-cols-1 gap-6 w-full px-4">
+                <div class="bg-white p-2 shadow-xl transform rotate-1"><img src="photo1.jpg" class="rounded-lg w-full"></div>
+                <div class="bg-white p-2 shadow-xl transform -rotate-1"><img src="photo2.jpg" class="rounded-lg w-full"></div>
+                <div class="bg-white p-2 shadow-xl transform rotate-1"><img src="photo3.jpg" class="rounded-lg w-full"></div>
             </div>
-
-            <div class="grid grid-cols-1 gap-8 w-full px-4">
-                <div class="bg-white p-3 shadow-xl transform rotate-2 rounded-lg"><img src="photo1.jpg" class="rounded w-full" alt="Memory 1"></div>
-                <div class="bg-white p-3 shadow-xl transform -rotate-2 rounded-lg"><img src="photo2.jpg" class="rounded w-full" alt="Memory 2"></div>
-                <div class="bg-white p-3 shadow-xl transform rotate-1 rounded-lg"><img src="photo3.jpg" class="rounded w-full" alt="Memory 3"></div>
-            </div>
-            
-            <p class="text-2xl text-pink-600 font-bold text-center cursive mt-10">Forever Your Best Friend 💕</p>
+            <p class="text-2xl text-pink-600 font-bold text-center cursive mt-10">💕 Forever Yours 💕</p>
         </div>
 
     </div>
@@ -154,10 +151,8 @@
     <audio id="player" src="music.mp3" loop></audio>
 
     <script>
-        // SET BIRTHDAY DATE
-        const birthdayDate = new Date(2026, 0, 19, 0, 0, 0).getTime();
+        const birthdayDate = new Date(2026, 0, 20, 0, 0, 0).getTime();
 
-        // TIMER LOGIC
         const timer = setInterval(function() {
             const now = new Date().getTime();
             const distance = birthdayDate - now;
@@ -169,40 +164,35 @@
 
             if (distance < 0) {
                 clearInterval(timer);
-                const ov = document.getElementById("countdown-overlay");
-                ov.classList.add('animate__animated', 'animate__fadeOut');
-                setTimeout(() => ov.style.display = "none", 1000);
+                document.getElementById("countdown-overlay").style.display = "none";
             }
         }, 1000);
 
-        // NAVIGATION LOGIC
-        function toLetter() { 
+        function toOnboarding() { 
             document.getElementById('stage-start').classList.add('hidden'); 
-            document.getElementById('stage-letter').classList.remove('hidden'); 
-        }
-        
-        function openCurtains() {
-            document.getElementById('curt-l').style.transform = "translateX(-100%)";
-            document.getElementById('curt-r').style.transform = "translateX(100%)";
-            document.getElementById('openBtn').classList.add('hidden');
-            document.getElementById('memBtn').classList.remove('hidden');
-            document.getElementById('player').play().catch(e => console.log("Audio play blocked"));
+            document.getElementById('stage-onboarding').classList.remove('hidden'); 
         }
 
-        function toMemories() {
-            document.getElementById('stage-letter').classList.add('hidden');
+        function move(idx) { 
+            // Changed to 25% because we now have 4 slides (100/4)
+            document.getElementById('track').style.transform = `translateX(-${idx * 25}%)`; 
+        }
+
+        function toParty() { 
+            document.getElementById('stage-onboarding').classList.add('hidden');
             document.getElementById('stage-memories').classList.remove('hidden');
-            document.getElementById('memoryVideo').play();
+            document.getElementById('player').play();
             window.scrollTo(0,0);
         }
 
-        // FLOATING HEARTS
         setInterval(() => {
-            const h = document.createElement('div'); h.innerHTML = '❤️'; h.className = 'heart';
-            h.style.left = Math.random() * 100 + 'vw'; h.style.animationDuration = (Math.random() * 3 + 4) + 's';
+            const h = document.createElement('div');
+            h.innerHTML = '❤️'; h.className = 'heart';
+            h.style.left = Math.random() * 100 + 'vw';
+            h.style.animationDuration = (Math.random() * 3 + 4) + 's';
             document.getElementById('particles').appendChild(h);
             setTimeout(() => h.remove(), 6000);
-        }, 600);
+        }, 500);
     </script>
 </body>
 </html>
