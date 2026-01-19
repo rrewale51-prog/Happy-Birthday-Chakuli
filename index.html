@@ -8,27 +8,48 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap');
+        
         body { font-family: 'Quicksand', sans-serif; overflow-x: hidden; background-color: #ffe4e6; transition: all 1.5s ease; }
+        img { image-rendering: -webkit-optimize-contrast; object-fit: cover; }
+
+        /* --- COUNTDOWN STYLES --- */
         #countdown-overlay { position: fixed; inset: 0; background: radial-gradient(circle, #ffafbd 0%, #ffc3a0 100%); z-index: 1000; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-        .glass-timer { background: rgba(255, 255, 255, 0.25); backdrop-filter: blur(10px); padding: 3rem; border-radius: 3rem; text-align: center; border: 2px solid rgba(255, 255, 255, 0.5); }
-        .timer-unit { display: flex; flex-direction: column; align-items: center; background: white; padding: 1rem; border-radius: 1.5rem; min-width: 75px; }
-        .timer-num { font-size: 2.5rem; font-weight: 800; color: #f02e65; }
+        .glass-timer { background: rgba(255, 255, 255, 0.25); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); padding: 3rem; border-radius: 3rem; box-shadow: 0 8px 32px 0 rgba(240, 46, 101, 0.37); text-align: center; border: 2px solid rgba(255, 255, 255, 0.5); animation: float 3s ease-in-out infinite; }
+        @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-15px); } }
+        .timer-unit { display: flex; flex-direction: column; align-items: center; background: white; padding: 1rem; border-radius: 1.5rem; min-width: 80px; box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+        .timer-num { font-size: 3rem; font-weight: 800; background: linear-gradient(to bottom, #f02e65, #ff7eb3); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1; }
+        .timer-label { font-size: 0.7rem; text-transform: uppercase; color: #f02e65; font-weight: 700; margin-top: 5px; }
+
+        /* --- DECORATIONS --- */
         .heart { position: fixed; top: -10%; color: rgba(255, 105, 180, 0.6); animation: fall linear infinite; z-index: 0; pointer-events: none; }
         @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
-        .slider-viewport { width: 100%; max-width: 350px; overflow: hidden; border-radius: 2.5rem; background: white; box-shadow: 0 25px 50px rgba(0,0,0,0.1); }
+        .neon-glow { text-shadow: 0 0 15px #ff1493, 0 0 30px #ff69b4; color: #ff1493; }
+
+        /* --- SLIDER --- */
+        .slider-viewport { width: 100%; max-width: 350px; overflow: hidden; border-radius: 2.5rem; background: white; box-shadow: 0 25px 50px rgba(0,0,0,0.1); border: 4px solid white; }
         .slider-track { display: flex; width: 300%; transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1); }
         .slide-unit { width: 33.333%; padding: 2.5rem; text-align: center; flex-shrink: 0; }
+
+        /* --- CAKE WITH CANDLE --- */
         .cake { position: relative; width: 160px; height: 120px; margin: 0 auto; transform: translateY(100px); opacity: 0; transition: all 1s ease; }
         .cake.show { transform: translateY(0); opacity: 1; }
-        .cake-layer { position: absolute; width: 100%; border-radius: 10px; }
+        .cake-layer { position: absolute; width: 100%; border-radius: 10px; border-bottom: 4px solid rgba(0,0,0,0.1); }
         .base { height: 40px; background: #fbcfe8; bottom: 0; }
         .mid { height: 40px; background: #f9a8d4; bottom: 35px; width: 90%; left: 5%; }
         .top { height: 40px; background: #fee2e2; bottom: 70px; width: 80%; left: 10%; }
-        .flag { display: inline-block; animation: sway 3s ease-in-out infinite alternate; background: #f02e65; color: white; padding: 6px 10px; border-radius: 0 0 8px 8px; margin: 2px; }
+        .candle { position: absolute; width: 8px; height: 35px; background: #fbbf24; top: -30px; left: 50%; transform: translateX(-50%); border-radius: 4px; box-shadow: inset 0 0 5px rgba(0,0,0,0.1); }
+        .flame { position: absolute; width: 12px; height: 18px; background: #f97316; border-radius: 50% 50% 20% 20%; top: -15px; left: -2px; animation: flicker 0.1s infinite alternate; box-shadow: 0 0 10px #f97316, 0 0 20px #fbbf24; }
+        @keyframes flicker { 0% { transform: scale(1); opacity: 1; } 100% { transform: scale(1.1); opacity: 0.8; } }
+        
+        /* --- BANNER --- */
+        .flag { display: inline-block; animation: sway 3s ease-in-out infinite alternate; background: #f02e65; color: white; padding: 6px 10px; border-radius: 0 0 8px 8px; margin: 2px; font-weight: bold; }
         @keyframes sway { from { transform: rotate(-5deg); } to { transform: rotate(5deg); } }
-        .curtain { transition: transform 2s cubic-bezier(0.4, 0, 0.2, 1); background: #991b1b; z-index: 20; }
+
+        /* --- LETTER SCROLL --- */
+        .curtain { transition: transform 2s cubic-bezier(0.4, 0, 0.2, 1); background: #991b1b; z-index: 20; border: 1px solid #7f1d1d; }
         .scroll-container::-webkit-scrollbar { width: 4px; }
         .scroll-container::-webkit-scrollbar-thumb { background: #f02e65; border-radius: 10px; }
+        #scroll-hint { pointer-events: none; transition: opacity 0.5s ease; z-index: 30; }
     </style>
 </head>
 <body>
@@ -37,10 +58,10 @@
         <div class="glass-timer">
             <h2 class="text-2xl font-bold text-white mb-8">Something Special Unlocks In...</h2>
             <div class="flex gap-4">
-                <div class="timer-unit"><span id="days" class="timer-num">00</span><span class="text-[10px] uppercase font-bold text-pink-500">Days</span></div>
-                <div class="timer-unit"><span id="hours" class="timer-num">00</span><span class="text-[10px] uppercase font-bold text-pink-500">Hrs</span></div>
-                <div class="timer-unit"><span id="mins" class="timer-num">00</span><span class="text-[10px] uppercase font-bold text-pink-500">Mins</span></div>
-                <div class="timer-unit"><span id="secs" class="timer-num">00</span><span class="text-[10px] uppercase font-bold text-pink-500">Secs</span></div>
+                <div class="timer-unit"><span id="days" class="timer-num">00</span><span class="timer-label">Days</span></div>
+                <div class="timer-unit"><span id="hours" class="timer-num">00</span><span class="timer-label">Hours</span></div>
+                <div class="timer-unit"><span id="mins" class="timer-num">00</span><span class="timer-label">Mins</span></div>
+                <div class="timer-unit"><span id="secs" class="timer-num">00</span><span class="timer-label">Secs</span></div>
             </div>
         </div>
     </div>
@@ -51,18 +72,20 @@
         
         <div id="stage-start" class="text-center space-y-8 animate__animated animate__fadeIn">
             <h1 class="text-2xl font-bold text-gray-800">Happy Birthday <span class="text-pink-600">Kukuli</span> 🎂</h1>
-            <h2 class="text-6xl font-bold text-pink-500 animate__animated animate__pulse animate__infinite">It's Your Birthday!</h2>
-            <button onclick="toOnboarding()" class="bg-[#f02e65] text-white px-12 py-4 rounded-full text-xl font-bold">🎀 Let's Celebrate</button>
+            <h2 class="text-6xl font-bold neon-glow animate__animated animate__pulse animate__infinite">It's Your Birthday!</h2>
+            <button onclick="toOnboarding()" class="bg-[#f02e65] text-white px-12 py-4 rounded-full text-xl font-bold shadow-2xl">🎀 Let's Celebrate</button>
         </div>
 
         <div id="stage-onboarding" class="hidden animate__animated animate__zoomIn">
             <div class="slider-viewport">
                 <div id="track" class="slider-track">
                     <div class="slide-unit space-y-6">
+                        <div class="text-5xl">✨</div>
                         <h3 class="text-2xl font-bold text-gray-800">It's Your Special Day Yeyey!</h3>
                         <button onclick="move(1)" class="bg-[#f02e65] text-white w-full py-4 rounded-2xl font-bold">Next</button>
                     </div>
                     <div class="slide-unit space-y-6">
+                        <div class="text-5xl">✨</div>
                         <h3 class="text-xl font-bold text-gray-800">Do you wanna see what I made??</h3>
                         <div class="flex gap-4">
                             <button onclick="move(2)" class="bg-[#f02e65] text-white flex-1 py-4 rounded-2xl font-bold">Yes!</button>
@@ -70,6 +93,7 @@
                         </div>
                     </div>
                     <div class="slide-unit space-y-6">
+                        <div class="text-5xl">✨</div>
                         <h3 class="text-xl font-bold text-gray-800">Have a look at it, Kuski Jiii</h3>
                         <button onclick="toParty()" class="bg-[#f02e65] text-white w-full py-4 rounded-2xl font-bold">Let's Go! 🎉</button>
                     </div>
@@ -78,10 +102,12 @@
         </div>
 
         <div id="stage-party" class="hidden w-full flex flex-col items-center">
-            <div id="light-row" class="flex gap-2 mb-8"></div>
-            <button id="partyBtn" onclick="advanceParty()" class="bg-yellow-400 text-gray-900 px-10 py-3 rounded-full font-bold z-50">💡 Turn On the Lights</button>
-            <div id="banner-area" class="mt-8 flex flex-wrap justify-center"></div>
-            <div id="cake" class="cake mt-8">
+            <h2 id="party-title" class="text-3xl font-bold text-pink-600 mb-6 text-center">Let's Celebrate! 🥳</h2>
+            <div id="light-row" class="flex gap-2 h-6 mb-12"></div>
+            <button id="partyBtn" onclick="advanceParty()" class="bg-yellow-400 text-gray-900 px-10 py-3 rounded-full font-bold shadow-xl z-50">💡 Turn On the Lights</button>
+            <div id="banner-area" class="mt-12 flex flex-wrap justify-center gap-1"></div>
+            <div id="cake" class="cake mt-12">
+                <div class="candle"><div class="flame"></div></div>
                 <div class="cake-layer base"></div>
                 <div class="cake-layer mid"></div>
                 <div class="cake-layer top"></div>
@@ -89,12 +115,13 @@
         </div>
 
         <div id="stage-letter" class="hidden w-full max-w-sm flex flex-col items-center animate__animated animate__fadeIn">
-            <div class="relative w-full h-[550px] bg-white rounded-[2.5rem] shadow-2xl overflow-hidden border-4 border-white">
+            <h2 class="text-2xl font-bold text-pink-600 mb-6">💌 A Message From My Heart</h2>
+            <div class="relative w-full h-[500px] bg-white rounded-[2.5rem] shadow-2xl overflow-hidden border-4 border-white">
                 <div id="curt-l" class="curtain absolute inset-y-0 left-0 w-1/2"></div>
                 <div id="curt-r" class="curtain absolute inset-y-0 right-0 w-1/2"></div>
                 
-                <div id="scroll-hint" class="absolute bottom-4 left-1/2 -translate-x-1/2 flex flex-col items-center opacity-0 pointer-events-none z-30">
-                    <span class="text-pink-500 text-[10px] font-bold mb-1">Scroll to read</span>
+                <div id="scroll-hint" class="absolute bottom-4 left-1/2 -translate-x-1/2 flex flex-col items-center opacity-0 pointer-events-none">
+                    <span class="text-pink-500 text-[10px] font-bold uppercase mb-1">Scroll to read</span>
                     <div class="text-pink-500 animate-bounce">▼</div>
                 </div>
 
@@ -123,9 +150,9 @@
                     <p class="mb-4">Mala fakt hech mahit ahe...<br>
                     <i>"Vaat pahavi Janma itki, marna itki bhet havi.. janmo janmi talhathavar ek tujhi he resh havi."</i> ✍️📖</p>
                     
-                    <p class="mb-4 font-bold text-xs text-pink-500">Actually, I heard these lines somewhere, and they felt like they were written just for us. I want to share this poem with you because it captures everything I feel about our connection across lifetimes:</p>
+                    <p class="mb-4 font-bold text-pink-500">Actually, I heard these lines somewhere, and they felt like they were written just for us. I want to share this poem with you because it captures everything I feel about our connection across lifetimes:</p>
 
-                    <div class="bg-pink-50 p-5 rounded-2xl italic text-gray-800 text-[13px] mb-6 space-y-3 border-l-4 border-pink-400">
+                    <div class="bg-pink-50 p-5 rounded-2xl italic text-gray-800 text-sm mb-6 space-y-3">
                         <p>He punarjanmachi bhakad Katha khari vyavi, Nidan pudhcya janmat tu Majhi asavi. 🥀</p>
                         <p>Puna pavsachi sar barsavi, me yaav bhijat ani tula majhi chatri dyavi. ☔</p>
                         <p>Nidan pudchya janmat ek tar majhi paristithi changli asavi, Nahi tar mag tujhi farshi kahi apeksha nasavi.</p>
@@ -134,9 +161,7 @@
                         <p>He punarjanmachi bhakad Katha khari vyavi ani pudchya janmi tu Majhi asavi.</p>
                     </div>
 
-                    <blockquote class="border-t border-b border-pink-100 py-4 my-6 text-center italic font-bold text-pink-500">
-                        "I’ll wait where stars forget to shine, and sing to me when silence sleeps." 🌌
-                    </blockquote>
+                    <p class="text-center font-bold text-pink-500 mb-6 italic">"I’ll wait where stars forget to shine, and sing to me when silence sleeps." 🌌</p>
                     
                     <p class="mb-6">In the next universe, in the next life, please find me sooner. I want to be able to tell the world that I have no incomplete wishes left. 🌠</p>
                     
@@ -144,15 +169,21 @@
                 </div>
             </div>
             <button id="openBtn" onclick="openCurtains()" class="mt-4 text-pink-500 font-bold underline">✨ Click to Open ✨</button>
-            <button id="memBtn" onclick="toMemories()" class="hidden mt-6 bg-[#f02e65] text-white px-8 py-3 rounded-full font-bold">📷 View Our Memories</button>
+            <button id="memBtn" onclick="toMemories()" class="hidden mt-10 bg-[#f02e65] text-white px-10 py-3 rounded-full font-bold shadow-lg">📷 View Our Memories</button>
         </div>
 
-        <div id="stage-memories" class="hidden w-full max-w-4xl flex flex-col items-center space-y-8 pb-20 animate__animated animate__fadeInRight">
-            <h2 class="text-2xl font-bold text-pink-600">📷 Our Memories</h2>
-            <div class="bg-white p-2 shadow-xl rounded-3xl w-full max-w-md">
-                <video id="memoryVideo" controls class="w-full rounded-2xl"><source src="birthday_video.mp4" type="video/mp4"></video>
+        <div id="stage-memories" class="hidden w-full max-w-4xl flex flex-col items-center space-y-12 pb-20 animate__animated animate__fadeInRight">
+            <h2 class="text-3xl font-bold text-pink-600 italic">📷 Our Beautiful Memories</h2>
+            <div class="bg-white p-4 shadow-2xl rounded-3xl transform rotate-1 w-full max-w-2xl">
+                <video id="memoryVideo" controls class="w-full rounded-2xl">
+                    <source src="birthday_video.mp4" type="video/mp4">
+                </video>
             </div>
-            <p class="text-xl text-pink-600 font-bold">💕 Forever Yours 💕</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 w-full px-4">
+                <img src="photo1.jpg" class="bg-white p-3 shadow-xl transform rotate-2 rounded-lg w-full">
+                <img src="photo2.jpg" class="bg-white p-3 shadow-xl transform -rotate-3 rounded-lg w-full">
+            </div>
+            <p class="text-2xl text-pink-600 font-bold">💕 Forever Yours 💕</p>
         </div>
     </div>
 
@@ -160,19 +191,19 @@
 
     <script>
         const birthdayDate = new Date(2026, 0, 19, 0, 0, 0).getTime();
-        setInterval(() => {
+        setInterval(function() {
             const now = new Date().getTime();
-            const dist = birthdayDate - now;
-            document.getElementById("days").innerText = Math.max(0, Math.floor(dist / 86400000)).toString().padStart(2, '0');
-            document.getElementById("hours").innerText = Math.max(0, Math.floor((dist % 86400000) / 3600000)).toString().padStart(2, '0');
-            document.getElementById("mins").innerText = Math.max(0, Math.floor((dist % 3600000) / 60000)).toString().padStart(2, '0');
-            document.getElementById("secs").innerText = Math.max(0, Math.floor((dist % 60000) / 1000)).toString().padStart(2, '0');
-            if (dist < 0) document.getElementById("countdown-overlay").style.display = "none";
+            const distance = birthdayDate - now;
+            document.getElementById("days").innerText = Math.max(0, Math.floor(distance / 86400000)).toString().padStart(2, '0');
+            document.getElementById("hours").innerText = Math.max(0, Math.floor((distance % 86400000) / 3600000)).toString().padStart(2, '0');
+            document.getElementById("mins").innerText = Math.max(0, Math.floor((distance % 3600000) / 60000)).toString().padStart(2, '0');
+            document.getElementById("secs").innerText = Math.max(0, Math.floor((distance % 60000) / 1000)).toString().padStart(2, '0');
+            if (distance < 0) document.getElementById("countdown-overlay").style.display = "none";
         }, 1000);
 
         function toOnboarding() { document.getElementById('stage-start').classList.add('hidden'); document.getElementById('stage-onboarding').classList.remove('hidden'); }
         function move(idx) { document.getElementById('track').style.transform = `translateX(-${idx * 33.333}%)`; }
-        function dodge() { const btn = document.getElementById('noBtn'); btn.style.position = 'absolute'; btn.style.left = Math.random() * 70 + '%'; btn.style.top = Math.random() * 70 + '%'; }
+        function dodge() { const btn = document.getElementById('noBtn'); btn.style.position = 'absolute'; btn.style.left = Math.random() * 80 + '%'; btn.style.top = Math.random() * 80 + '%'; }
         function toParty() { document.getElementById('stage-onboarding').classList.add('hidden'); document.getElementById('stage-party').classList.remove('hidden'); }
 
         let pStep = 0;
@@ -189,8 +220,12 @@
                 document.getElementById('cake').classList.add('show');
                 btn.innerText = "🎈 Fly Balloons";
             }
-            else if(pStep === 4) { btn.innerText = "Read My Message"; }
-            else { document.getElementById('stage-party').classList.add('hidden'); document.getElementById('stage-letter').classList.remove('hidden'); document.body.style.backgroundColor = "#ffe4e6"; }
+            else if(pStep === 4) { btn.innerText = "Read My Letter"; }
+            else { 
+                document.getElementById('stage-party').classList.add('hidden'); 
+                document.getElementById('stage-letter').classList.remove('hidden'); 
+                document.body.style.backgroundColor = "#ffe4e6"; 
+            }
         }
 
         function openCurtains() {
@@ -200,16 +235,15 @@
             document.getElementById('memBtn').classList.remove('hidden');
             document.getElementById('scroll-hint').style.opacity = "1";
         }
-
         function hideHint() { document.getElementById('scroll-hint').style.opacity = "0"; }
         function toMemories() { document.getElementById('stage-letter').classList.add('hidden'); document.getElementById('stage-memories').classList.remove('hidden'); document.getElementById('memoryVideo').play(); window.scrollTo(0,0); }
 
         setInterval(() => {
             const h = document.createElement('div'); h.innerHTML = '❤️'; h.className = 'heart';
-            h.style.left = Math.random() * 100 + 'vw'; h.style.animationDuration = (Math.random() * 2 + 3) + 's';
+            h.style.left = Math.random() * 100 + 'vw'; h.style.animationDuration = (Math.random() * 3 + 4) + 's';
             document.getElementById('particles').appendChild(h);
-            setTimeout(() => h.remove(), 5000);
-        }, 400);
+            setTimeout(() => h.remove(), 6000);
+        }, 500);
     </script>
 </body>
 </html>
