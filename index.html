@@ -9,7 +9,13 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&family=Dancing+Script:wght@700&display=swap');
         
-        body { font-family: 'Quicksand', sans-serif; overflow-x: hidden; background-color: #ffe4e6; margin: 0; }
+        body { 
+            font-family: 'Quicksand', sans-serif; 
+            overflow-x: hidden; 
+            background-color: #ffe4e6; 
+            margin: 0;
+            padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+        }
         .cursive { font-family: 'Dancing Script', cursive; }
         
         /* --- GLASS COUNTDOWN --- */
@@ -73,7 +79,9 @@
                 <div id="curt-r" class="curtain absolute inset-y-0 right-0 w-1/2"></div>
                 
                 <div class="p-8 h-full overflow-y-auto letter-content">
+                    
                     <h3 class="font-bold text-pink-600 text-2xl mb-6">Happy Birthday, Shraddha! 🌟</h3>
+                    
                     <p class="mb-6">Today is a gentle reminder that while part of the journey is the end, every ending is simply the threshold of a new adventure. We often look back at what we’ve left behind, but remember: <b>What is grief, if not love persevering?</b> 🤍 Those no longer by our side become the 'spirit' in our music and the 'spark' in our souls. 🎶✨ A thing isn’t beautiful because it lasts; it is beautiful because it happened. So, take those lessons, tuck the memories into your heart, and thank you for the adventure—now, go start a new one! 🚀✨</p>
 
                     <h4 class="font-bold text-pink-500 text-xl mt-8 mb-4">🗺️ The Geometry of Destiny</h4>
@@ -81,22 +89,26 @@
 
                     <h4 class="font-bold text-pink-500 text-xl mt-8 mb-4">🥥 The Girl with the "Naral" Heart</h4>
                     <p class="mb-6">Do you remember our first interaction? You were explaining a plot to the team, and I was wondering, <i>"Do people even watch movies like that anymore?"</i> 😂 But then, as we left the office, I asked you: <b>"Jauya ka Sudamati Kamat kade Kaakan denya saathi?"</b> 🥥</p>
+                    
                     <p class="mb-6">You laughed, and that was the first time I saw your smile. It’s a smile like no other—like a coconut fruit; tough and protective on the outside, but fragile and pure like a child on the inside. 🥥❤️</p>
 
                     <h4 class="font-bold text-pink-500 text-xl mt-8 mb-4">🕊️ The Saturday That Froze Time</h4>
                     <p class="mb-6">Last year had its havoc, but it gave me a Saturday I will never forget. ⛩️ From the peace of <b>Siddhivinayak</b> to the breeze at Chowpatty, sharing headphones and listening to <b>"Kitida Navyane Tula Aathvave"</b>... it felt like time froze. My priority was sitting right next to me, sharing the exact same emotion.</p>
+                    
                     <p class="mb-6">Even when you were exhausted, you didn't hesitate to say, <b>"Chal Mathat Jauya."</b> 📿 Reaching Swami’s Math late that night was a blessing. I’ve made a promise to myself: whenever you are going through a tough phase, I will revisit the places where we shared our strongest connection to pray for you. That is my guarantee to you. 🚩🙏</p>
 
                     <h4 class="font-bold text-pink-500 text-xl mt-8 mb-4">✨ No One Replaces You</h4>
                     <p class="mb-6">You are irreplaceable—not today, not ever. No matter who enters my life, no one feels like you. These are the years where we become who we are meant to be. <b>Just be careful who you change into.</b> 🦋 Distance comes in miles and in hearts, but I believe our bond makes distance meaningless. If we ever drift, just look back at our "old little memories" and give me a call. I can lose anything, but I don’t ever want to lose a person like you. 🚫👤</p>
 
                     <hr class="my-8 border-pink-100">
+                    
                     <h4 class="font-bold text-pink-600 text-2xl mb-6">🌌 Ani Move On?? Te Kay ast??</h4>
                     <p class="mb-4">Mala fakt hech mahit ahe...<br>
                     <span class="italic font-bold">"Vaat pahavi Janma itki, marna itki bhet havi.. janmo janmi talhathavar ek tujhi he resh havi."</span> ✍️📖</p>
+                    
                     <p class="mb-6">Actually, I heard these lines somewhere, and they felt like they were written just for us. I want to share this poem with you because it captures everything I feel about our connection across lifetimes:</p>
 
-                    <div class="marathi-poem space-y-3">
+                    <div class="marathi-poem space-y-3 text-gray-800">
                         <p>He punarjanmachi bhakad Katha khari vyavi, Nidan pudhcya janmat tu Majhi asavi. 🥀</p>
                         <p>Puna pavsachi sar barsavi, me yaav bhijat ani tula majhi chatri dyavi. ☔</p>
                         <p>Nidan pudchya janmat ek tar majhi paristithi changli asavi, Nahi tar mag tujhi farshi kahi apeksha nasavi.</p>
@@ -106,6 +118,7 @@
                     </div>
 
                     <p class="italic font-bold text-pink-500 text-center mb-8 px-4">"I’ll wait where stars forget to shine, and sing to me when silence sleeps." 🌌</p>
+                    
                     <p class="mb-8">In the next universe, in the next life, please find me sooner. I want to be able to tell the world that I have no incomplete wishes left. 🌠</p>
                     
                     <div class="text-right mt-12 pb-10">
@@ -115,16 +128,25 @@
             </div>
 
             <button id="openBtn" onclick="openCurtains()" class="mt-8 text-pink-500 font-bold animate-bounce underline text-lg">✨ Open the Tribute ✨</button>
-            <button id="memBtn" onclick="toMemories()" class="hidden mt-8 bg-[#f02e65] text-white px-12 py-4 rounded-full text-xl font-bold shadow-lg">📷 View Our Memories</button>
+            <button id="memBtn" onclick="toMemories()" class="hidden mt-8 bg-[#f02e65] text-white px-12 py-4 rounded-full text-xl font-bold shadow-lg animate__animated animate__fadeInUp">📷 View Our Memories</button>
         </div>
 
         <div id="stage-memories" class="hidden w-full max-w-lg flex flex-col items-center space-y-10 pb-20">
             <h2 class="text-3xl font-bold text-pink-600 cursive text-4xl">Our Beautiful Memories</h2>
-            <div class="grid grid-cols-1 gap-8 w-full px-4">
-                <div class="bg-white p-3 shadow-xl transform rotate-2 rounded-lg"><img src="photo1.jpg" class="w-full"></div>
-                <div class="bg-white p-3 shadow-xl transform -rotate-2 rounded-lg"><img src="photo2.jpg" class="w-full"></div>
-                <div class="bg-white p-3 shadow-xl transform rotate-1 rounded-lg"><img src="photo3.jpg" class="w-full"></div>
+            
+            <div class="w-full bg-white p-4 shadow-2xl rounded-3xl">
+                <video id="memoryVideo" controls class="w-full rounded-2xl bg-black">
+                    <source src="birthday_video.mp4" type="video/mp4">
+                </video>
             </div>
+
+            <div class="grid grid-cols-1 gap-8 w-full px-4">
+                <div class="bg-white p-3 shadow-xl transform rotate-2 rounded-lg"><img src="photo1.jpg" class="rounded w-full" alt="Memory 1"></div>
+                <div class="bg-white p-3 shadow-xl transform -rotate-2 rounded-lg"><img src="photo2.jpg" class="rounded w-full" alt="Memory 2"></div>
+                <div class="bg-white p-3 shadow-xl transform rotate-1 rounded-lg"><img src="photo3.jpg" class="rounded w-full" alt="Memory 3"></div>
+            </div>
+            
+            <p class="text-2xl text-pink-600 font-bold text-center cursive mt-10">Forever Your Best Friend 💕</p>
         </div>
 
     </div>
@@ -132,31 +154,54 @@
     <audio id="player" src="music.mp3" loop></audio>
 
     <script>
-        const birthdayDate = new Date(2026, 0, 19, 0, 0, 0).getTime();
+        // SET BIRTHDAY DATE
+        const birthdayDate = new Date(2026, 0, 20, 0, 0, 0).getTime();
+
+        // TIMER LOGIC
         const timer = setInterval(function() {
             const now = new Date().getTime();
             const distance = birthdayDate - now;
+            
             document.getElementById("days").innerText = Math.max(0, Math.floor(distance / (1000 * 60 * 60 * 24))).toString().padStart(2, '0');
             document.getElementById("hours").innerText = Math.max(0, Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).toString().padStart(2, '0');
             document.getElementById("mins").innerText = Math.max(0, Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))).toString().padStart(2, '0');
             document.getElementById("secs").innerText = Math.max(0, Math.floor((distance % (1000 * 60)) / 1000)).toString().padStart(2, '0');
-            if (distance < 0) { clearInterval(timer); document.getElementById("countdown-overlay").style.display = "none"; }
+
+            if (distance < 0) {
+                clearInterval(timer);
+                const ov = document.getElementById("countdown-overlay");
+                ov.classList.add('animate__animated', 'animate__fadeOut');
+                setTimeout(() => ov.style.display = "none", 1000);
+            }
         }, 1000);
 
-        function toLetter() { document.getElementById('stage-start').classList.add('hidden'); document.getElementById('stage-letter').classList.remove('hidden'); }
+        // NAVIGATION LOGIC
+        function toLetter() { 
+            document.getElementById('stage-start').classList.add('hidden'); 
+            document.getElementById('stage-letter').classList.remove('hidden'); 
+        }
+        
         function openCurtains() {
             document.getElementById('curt-l').style.transform = "translateX(-100%)";
             document.getElementById('curt-r').style.transform = "translateX(100%)";
             document.getElementById('openBtn').classList.add('hidden');
             document.getElementById('memBtn').classList.remove('hidden');
-            document.getElementById('player').play();
+            document.getElementById('player').play().catch(e => console.log("Audio play blocked"));
         }
-        function toMemories() { document.getElementById('stage-letter').classList.add('hidden'); document.getElementById('stage-memories').classList.remove('hidden'); window.scrollTo(0,0); }
 
+        function toMemories() {
+            document.getElementById('stage-letter').classList.add('hidden');
+            document.getElementById('stage-memories').classList.remove('hidden');
+            document.getElementById('memoryVideo').play();
+            window.scrollTo(0,0);
+        }
+
+        // FLOATING HEARTS
         setInterval(() => {
             const h = document.createElement('div'); h.innerHTML = '❤️'; h.className = 'heart';
             h.style.left = Math.random() * 100 + 'vw'; h.style.animationDuration = (Math.random() * 3 + 4) + 's';
-            document.getElementById('particles').appendChild(h); setTimeout(() => h.remove(), 6000);
+            document.getElementById('particles').appendChild(h);
+            setTimeout(() => h.remove(), 6000);
         }, 600);
     </script>
 </body>
