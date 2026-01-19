@@ -12,13 +12,20 @@
         body { font-family: 'Quicksand', sans-serif; overflow-x: hidden; background-color: #ffe4e6; transition: all 1.5s ease; }
         img { image-rendering: -webkit-optimize-contrast; object-fit: cover; }
 
-        /* --- COUNTDOWN --- */
-        #countdown-overlay { position: fixed; inset: 0; background: radial-gradient(circle, #ffafbd 0%, #ffc3a0 100%); z-index: 1000; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-        .glass-timer { background: rgba(255, 255, 255, 0.25); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); padding: 3rem; border-radius: 3rem; box-shadow: 0 8px 32px 0 rgba(240, 46, 101, 0.37); text-align: center; border: 2px solid rgba(255, 255, 255, 0.5); animation: float 3s ease-in-out infinite; }
-        @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-15px); } }
-        .timer-unit { display: flex; flex-direction: column; align-items: center; background: white; padding: 1rem; border-radius: 1.5rem; min-width: 80px; box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
-        .timer-num { font-size: 3rem; font-weight: 800; background: linear-gradient(to bottom, #f02e65, #ff7eb3); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1; }
-        .timer-label { font-size: 0.7rem; text-transform: uppercase; color: #f02e65; font-weight: 700; margin-top: 5px; }
+        /* --- MOBILE-FRIENDLY COUNTDOWN --- */
+        #countdown-overlay { position: fixed; inset: 0; background: radial-gradient(circle, #ffafbd 0%, #ffc3a0 100%); z-index: 1000; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 1rem; }
+        .glass-timer { background: rgba(255, 255, 255, 0.25); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); padding: 2rem; border-radius: 2rem; box-shadow: 0 8px 32px 0 rgba(240, 46, 101, 0.37); text-align: center; border: 2px solid rgba(255, 255, 255, 0.5); width: 100%; max-width: 450px; }
+        
+        /* Flexbox for the timer units to ensure they fit on one line on most phones */
+        .timer-container { display: flex; justify-content: center; gap: 0.5rem; flex-wrap: nowrap; }
+        .timer-unit { display: flex; flex-direction: column; align-items: center; background: white; padding: 0.75rem 0.5rem; border-radius: 1rem; flex: 1; min-width: 65px; box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+        .timer-num { font-size: 1.75rem; font-weight: 800; background: linear-gradient(to bottom, #f02e65, #ff7eb3); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1; }
+        .timer-label { font-size: 0.6rem; text-transform: uppercase; color: #f02e65; font-weight: 700; margin-top: 4px; }
+
+        @media (min-width: 400px) {
+            .timer-num { font-size: 2.25rem; }
+            .timer-unit { padding: 1rem; gap: 0.75rem; }
+        }
 
         /* --- DECORATIONS --- */
         .heart { position: fixed; top: -10%; color: rgba(255, 105, 180, 0.6); animation: fall linear infinite; z-index: 0; pointer-events: none; }
@@ -57,8 +64,8 @@
 
     <div id="countdown-overlay">
         <div class="glass-timer">
-            <h2 class="text-2xl font-bold text-white mb-8">Something Special Unlocks In...</h2>
-            <div class="flex gap-4">
+            <h2 class="text-xl md:text-2xl font-bold text-white mb-6">Something Special Unlocks In...</h2>
+            <div class="timer-container">
                 <div class="timer-unit"><span id="days" class="timer-num">00</span><span class="timer-label">Days</span></div>
                 <div class="timer-unit"><span id="hours" class="timer-num">00</span><span class="timer-label">Hours</span></div>
                 <div class="timer-unit"><span id="mins" class="timer-num">00</span><span class="timer-label">Mins</span></div>
@@ -73,7 +80,7 @@
         
         <div id="stage-start" class="text-center space-y-8 animate__animated animate__fadeIn">
             <h1 class="text-2xl font-bold text-gray-800">Happy Birthday <span class="text-pink-600">Kukuli</span> 🎂</h1>
-            <h2 class="text-6xl font-bold text-pink-500 animate__animated animate__pulse animate__infinite">It's Your Birthday!</h2>
+            <h2 class="text-5xl md:text-6xl font-bold text-pink-500 animate__animated animate__pulse animate__infinite">It's Your Birthday!</h2>
             <button onclick="toOnboarding()" class="bg-[#f02e65] text-white px-12 py-4 rounded-full text-xl font-bold shadow-2xl">🎀 Let's Celebrate</button>
         </div>
 
@@ -95,7 +102,7 @@
                     </div>
                     <div class="slide-unit space-y-6">
                         <div class="text-5xl">✨</div>
-                        <h3 class="text-xl font-bold text-gray-800">Have a look at it, Kuski</h3>
+                        <h3 class="text-xl font-bold text-gray-800">Have a look at it, Kuski Jiii</h3>
                         <button onclick="toParty()" class="bg-[#f02e65] text-white w-full py-4 rounded-2xl font-bold">Let's Go! 🎉</button>
                     </div>
                 </div>
@@ -116,7 +123,7 @@
         </div>
 
         <div id="stage-letter" class="hidden w-full max-w-sm flex flex-col items-center animate__animated animate__fadeIn">
-            <h2 class="text-2xl font-bold text-pink-600 mb-6 italic">Our Journey Till Now</h2>
+            <h2 class="text-2xl font-bold text-pink-600 mb-6 italic">A Message From My Heart</h2>
             <div class="relative w-full h-[500px] bg-white rounded-[2.5rem] shadow-2xl overflow-hidden border-4 border-white">
                 <div id="curt-l" class="curtain absolute inset-y-0 left-0 w-1/2"></div>
                 <div id="curt-r" class="curtain absolute inset-y-0 right-0 w-1/2"></div>
@@ -143,7 +150,7 @@
                     <p class="mb-4">Even when you were exhausted, you didn't hesitate to say, <b>"Chal Mathat Jauya."</b> 📿 Reaching Swami’s Math late that night was a blessing. I’ve made a promise to myself: whenever you are going through a tough phase, I will revisit the places where we shared our strongest connection to pray for you. That is my guarantee to you. 🚩🙏</p>
 
                     <h3 class="text-lg font-bold text-pink-500 mt-6 mb-2">✨ No One Replaces You</h3>
-                    <p class="mb-4">You are irreplaceable... not today, not ever. No matter who enters my life, no one feels like you. These are the years where we become who we are meant to be. <b>Just be careful who you change into.</b> 🦋 Distance comes in miles and in hearts, but I believe our bond makes distance meaningless. If we ever drift, just look back at our "old little memories" and give me a call. I can lose anything, but I don’t ever want to lose a person like you. 🚫👤</p>
+                    <p class="mb-4">You are irreplaceable—not today, not ever. No matter who enters my life, no one feels like you. These are the years where we become who we are meant to be. <b>Just be careful who you change into.</b> 🦋 Distance comes in miles and in hearts, but I believe our bond makes distance meaningless. If we ever drift, just look back at our "old little memories" and give me a call. I can lose anything, but I don’t ever want to lose a person like you. 🚫👤</p>
 
                     <hr class="my-6 border-pink-100">
 
@@ -166,7 +173,7 @@
                     
                     <p class="mb-6">In the next universe, in the next life, please find me sooner. I want to be able to tell the world that I have no incomplete wishes left. 🌠</p>
                     
-                    <p class="text-right font-bold text-pink-600 text-lg pb-10">Happy Birthday, Kuku. <br> May this year be yours, and yours alone. 🎂🎈✨</p>
+                    <p class="text-right font-bold text-pink-600 text-lg pb-10">Happy Birthday, Shraddha. <br> May this year be yours, and yours alone. 🎂🎈✨</p>
                 </div>
             </div>
             <button id="openBtn" onclick="openCurtains()" class="mt-4 text-pink-500 font-bold underline">✨ Click to Open ✨</button>
@@ -178,19 +185,19 @@
             <div class="bg-white p-4 shadow-2xl rounded-3xl transform rotate-1 w-full max-w-2xl">
                 <video id="memoryVideo" controls class="w-full rounded-2xl"><source src="birthday_video.mp4" type="video/mp4"></video>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 w-full px-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 w-full px-4">
                 <img src="photo1.jpg" class="bg-white p-3 shadow-xl transform rotate-2 rounded-lg w-full">
                 <img src="photo2.jpg" class="bg-white p-3 shadow-xl transform -rotate-3 rounded-lg w-full">
                 <img src="photo3.jpg" class="bg-white p-3 shadow-xl transform rotate-1 rounded-lg w-full">
             </div>
-            <p class="text-2xl text-pink-600 font-bold">💕 Forever Admirer 💕</p>
+            <p class="text-2xl text-pink-600 font-bold">💕 Forever Yours 💕</p>
         </div>
     </div>
 
     <audio id="player" src="music.mp3" loop></audio>
 
     <script>
-        const birthdayDate = new Date(2026, 0, 20, 0, 0, 0).getTime();
+        const birthdayDate = new Date(2026, 0, 19, 0, 0, 0).getTime();
         setInterval(function() {
             const now = new Date().getTime();
             const distance = birthdayDate - now;
@@ -221,7 +228,6 @@
                 btn.innerText = "🎈 Fly Balloons";
             }
             else if(pStep === 4) { 
-                // BALLOON LOGIC
                 for(let i=0; i<20; i++) {
                     setTimeout(() => {
                         const b = document.createElement('div');
@@ -232,7 +238,7 @@
                         setTimeout(() => b.remove(), 6000);
                     }, i * 200);
                 }
-                btn.innerText = "A Meesage From My Heart"; 
+                btn.innerText = "A Message From My Heart"; 
             }
             else { 
                 document.getElementById('stage-party').classList.add('hidden'); 
