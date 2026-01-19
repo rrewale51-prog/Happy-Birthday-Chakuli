@@ -2,22 +2,17 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Happy Birthday Madam Jii</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap');
         
-        body { 
-            font-family: 'Quicksand', sans-serif; 
-            overflow-x: hidden; 
-            background-color: #ffe4e6; 
-            margin: 0;
-            padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
-        }
+        body { font-family: 'Quicksand', sans-serif; overflow-x: hidden; background-color: #ffe4e6; transition: all 1.5s ease; }
+        img { image-rendering: -webkit-optimize-contrast; object-fit: cover; }
 
-        /* --- EXCITING RESPONSIVE COUNTDOWN --- */
+        /* --- EXCITING COUNTDOWN STYLES --- */
         #countdown-overlay { 
             position: fixed; 
             inset: 0; 
@@ -26,188 +21,318 @@
             display: flex; 
             flex-direction: column; 
             align-items: center; 
-            justify-content: center;
-            padding: 20px;
+            justify-content: center; 
         }
 
         .glass-timer {
             background: rgba(255, 255, 255, 0.25);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            padding: 2rem 1rem;
-            border-radius: 2.5rem;
-            box-shadow: 0 8px 32px 0 rgba(240, 46, 101, 0.3);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 3rem;
+            border-radius: 3rem;
+            box-shadow: 0 8px 32px 0 rgba(240, 46, 101, 0.37);
             text-align: center;
             border: 2px solid rgba(255, 255, 255, 0.5);
-            width: 100%;
-            max-width: 400px;
             animation: float 3s ease-in-out infinite;
         }
 
-        /* Responsive Grid for Timer */
-        .timer-container {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 8px;
-            margin-top: 20px;
-        }
-
-        @media (max-width: 380px) {
-            .timer-container { gap: 5px; }
-            .timer-unit { min-width: unset !important; padding: 0.5rem !important; }
-            .timer-num { font-size: 1.8rem !important; }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
         }
 
         .timer-unit {
-            background: white;
-            padding: 1rem 0.5rem;
-            border-radius: 1.2rem;
             display: flex;
             flex-direction: column;
             align-items: center;
-            box-shadow: 0 10px 15px rgba(0,0,0,0.05);
+            background: white;
+            padding: 1rem;
+            border-radius: 1.5rem;
+            min-width: 80px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
         }
 
         .timer-num {
-            font-size: 2.2rem;
+            font-size: 3rem;
             font-weight: 800;
             background: linear-gradient(to bottom, #f02e65, #ff7eb3);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            line-height: 1.2;
+            line-height: 1;
         }
 
         .timer-label {
-            font-size: 0.6rem;
+            font-size: 0.7rem;
             text-transform: uppercase;
+            letter-spacing: 1px;
             color: #f02e65;
             font-weight: 700;
-            margin-top: 2px;
+            margin-top: 5px;
         }
 
-        /* Stage adjustments for mobile */
-        .slide-unit { padding: 1.5rem !important; }
-        h2.neon-glow { font-size: 3rem !important; line-height: 1; }
+        .pulse-ring {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 3rem;
+            border: 2px solid #fff;
+            animation: pulse-ring 2s cubic-bezier(0.455, 0.03, 0.515, 0.955) infinite;
+        }
 
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        @keyframes pulse-ring {
+            0% { transform: scale(0.95); opacity: 0.8; }
+            100% { transform: scale(1.15); opacity: 0; }
+        }
 
+        /* --- GAME & SURPRISE STYLES --- */
         .heart { position: fixed; top: -10%; color: rgba(255, 105, 180, 0.6); animation: fall linear infinite; z-index: 0; pointer-events: none; }
         @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
+        .neon-glow { text-shadow: 0 0 15px #ff1493, 0 0 30px #ff69b4; color: #ff1493; }
+
+        .slider-viewport { width: 100%; max-width: 350px; overflow: hidden; border-radius: 2.5rem; background: white; box-shadow: 0 25px 50px rgba(0,0,0,0.1); border: 4px solid white; }
+        .slider-track { display: flex; width: 300%; transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1); }
+        .slide-unit { width: 33.333%; padding: 2.5rem; text-align: center; flex-shrink: 0; }
+
+        .flag { display: inline-block; animation: sway 3s ease-in-out infinite alternate; transform-origin: top; background: #f02e65; color: white; padding: 6px 10px; border-radius: 0 0 8px 8px; margin: 2px; font-weight: bold; }
+        @keyframes sway { from { transform: rotate(-5deg); } to { transform: rotate(5deg); } }
+
+        .cake { position: relative; width: 160px; height: 120px; margin: 0 auto; transform: translateY(100px); opacity: 0; transition: all 1s ease; }
+        .cake.show { transform: translateY(0); opacity: 1; }
+        .cake-layer { position: absolute; width: 100%; border-radius: 10px; border-bottom: 4px solid rgba(0,0,0,0.1); }
+        .base { height: 40px; background: #fbcfe8; bottom: 0; }
+        .mid { height: 40px; background: #f9a8d4; bottom: 35px; width: 90%; left: 5%; }
+        .top { height: 40px; background: #fee2e2; bottom: 70px; width: 80%; left: 10%; }
+        .candle { position: absolute; width: 8px; height: 30px; background: #fbbf24; top: -25px; left: 50%; transform: translateX(-50%); border-radius: 4px; }
+        .flame { position: absolute; width: 12px; height: 18px; background: #f97316; border-radius: 50% 50% 20% 20%; top: -15px; left: -2px; animation: flicker 0.1s infinite alternate; }
+        @keyframes flicker { from { opacity: 0.8; } to { opacity: 1; } }
+
+        .balloon { position: fixed; bottom: -100px; font-size: 3rem; animation: floatUp 6s ease-in forwards; z-index: 100; }
+        @keyframes floatUp { 0% { bottom: -100px; opacity: 1; } 100% { bottom: 120vh; opacity: 0; } }
+        .curtain { transition: transform 2s cubic-bezier(0.4, 0, 0.2, 1); background: #991b1b; z-index: 20; border: 1px solid #7f1d1d; }
     </style>
 </head>
 <body>
 
     <div id="countdown-overlay">
-        <div class="glass-timer">
-            <h2 class="text-xl md:text-2xl font-bold text-white mb-4 drop-shadow-md">Unlocking In...</h2>
-            <div class="timer-container">
-                <div class="timer-unit">
-                    <span id="days" class="timer-num">00</span>
-                    <span class="timer-label">Days</span>
+        <div class="relative">
+            <div class="pulse-ring"></div>
+            <div class="glass-timer">
+                <h2 class="text-3xl font-bold text-white mb-8 drop-shadow-md">Something Special Unlocks In...</h2>
+                <div class="flex gap-4">
+                    <div class="timer-unit">
+                        <span id="days" class="timer-num">00</span>
+                        <span class="timer-label">Days</span>
+                    </div>
+                    <div class="timer-unit">
+                        <span id="hours" class="timer-num">00</span>
+                        <span class="timer-label">Hours</span>
+                    </div>
+                    <div class="timer-unit">
+                        <span id="mins" class="timer-num">00</span>
+                        <span class="timer-label">Mins</span>
+                    </div>
+                    <div class="timer-unit">
+                        <span id="secs" class="timer-num">00</span>
+                        <span class="timer-label">Secs</span>
+                    </div>
                 </div>
-                <div class="timer-unit">
-                    <span id="hours" class="timer-num">00</span>
-                    <span class="timer-label">Hours</span>
-                </div>
-                <div class="timer-unit">
-                    <span id="mins" class="timer-num">00</span>
-                    <span class="timer-label">Mins</span>
-                </div>
-                <div class="timer-unit">
-                    <span id="secs" class="timer-num">00</span>
-                    <span class="timer-label">Secs</span>
-                </div>
+                <p class="mt-8 text-white font-medium italic opacity-90">Get ready, Madam Jiii! ✨</p>
             </div>
-            <p class="mt-6 text-white text-sm font-medium italic opacity-90">Get ready, Madam Jiii! ✨</p>
         </div>
     </div>
 
     <div id="particles"></div>
 
-    <div id="flow-container" class="min-h-screen flex flex-col items-center justify-center p-4 relative z-10">
+    <div id="flow-container" class="min-h-screen flex flex-col items-center justify-center p-6 relative z-10">
         
-        <div id="stage-start" class="text-center space-y-6 animate__animated animate__fadeIn">
-            <h1 class="text-xl font-bold text-gray-800">Happy Birthday <span class="text-pink-600">Madam Jii</span> 🎂</h1>
-            <h2 class="text-5xl font-bold text-pink-500 animate__animated animate__pulse animate__infinite" style="text-shadow: 0 0 10px #ff69b4;">It's Your Day!</h2>
-            <button onclick="toOnboarding()" class="bg-[#f02e65] text-white px-10 py-4 rounded-full text-lg font-bold shadow-xl">🎀 Start Surprise</button>
+        <div id="stage-start" class="text-center space-y-8 animate__animated animate__fadeIn">
+            <div class="space-y-1">
+                <h1 class="text-2xl font-bold text-gray-800">Happy Birthday <span class="text-pink-600">Madam Jii</span> 🎂</h1>
+                <p class="text-gray-500 text-sm italic">"Your presence makes everything better."</p>
+            </div>
+            <h2 class="text-6xl font-bold neon-glow animate__animated animate__pulse animate__infinite">It's Your Birthday!</h2>
+            <button onclick="toOnboarding()" class="bg-[#f02e65] text-white px-12 py-4 rounded-full text-xl font-bold shadow-2xl mt-8">🎀 Let's Celebrate</button>
         </div>
 
-        <div id="stage-onboarding" class="hidden w-full max-w-xs animate__animated animate__zoomIn">
-            <div class="bg-white rounded-[2rem] shadow-2xl overflow-hidden border-4 border-white">
-                <div id="track" class="flex transition-transform duration-700 w-[300%]">
-                    <div class="w-1/3 p-8 text-center space-y-4">
-                        <div class="text-4xl">✨</div>
-                        <h3 class="text-xl font-bold">Ready for the magic?</h3>
-                        <button onclick="move(1)" class="bg-[#f02e65] text-white w-full py-3 rounded-xl font-bold">Next</button>
+        <div id="stage-onboarding" class="hidden animate__animated animate__zoomIn">
+            <div class="slider-viewport">
+                <div id="track" class="slider-track">
+                    <div class="slide-unit space-y-6">
+                        <div class="text-5xl">✨</div>
+                        <h3 class="text-2xl font-bold text-gray-800">It's Your Special Day Yeyey!</h3>
+                        <button onclick="move(1)" class="bg-[#f02e65] text-white w-full py-4 rounded-2xl font-bold">Next</button>
                     </div>
-                    <div class="w-1/3 p-8 text-center space-y-4">
-                        <div class="text-4xl">💝</div>
-                        <h3 class="text-xl font-bold">I made this for you!</h3>
-                        <button onclick="move(2)" class="bg-[#f02e65] text-white w-full py-3 rounded-xl font-bold">Let's see!</button>
+                    <div class="slide-unit space-y-6">
+                        <div class="text-5xl">✨</div>
+                        <h3 class="text-xl font-bold text-gray-800">Do you wanna see what I made??</h3>
+                        <div class="flex gap-4">
+                            <button onclick="move(2)" class="bg-[#f02e65] text-white flex-1 py-4 rounded-2xl font-bold">Yes!</button>
+                            <button id="noBtn" onmouseover="dodge()" class="bg-gray-400 text-white flex-1 py-4 rounded-2xl font-bold">No</button>
+                        </div>
                     </div>
-                    <div class="w-1/3 p-8 text-center space-y-4">
-                        <div class="text-4xl">🎉</div>
-                        <h3 class="text-xl font-bold">Here we go...</h3>
-                        <button onclick="toParty()" class="bg-[#f02e65] text-white w-full py-3 rounded-xl font-bold">Open 🎉</button>
+                    <div class="slide-unit space-y-6">
+                        <div class="text-5xl">✨</div>
+                        <h3 class="text-xl font-bold text-gray-800">Have a look at it, Madam Jiii</h3>
+                        <button onclick="toParty()" class="bg-[#f02e65] text-white w-full py-4 rounded-2xl font-bold">Let's Go! 🎉</button>
                     </div>
+                </div>
+                <div class="flex justify-center gap-2 pb-6">
+                    <div id="dot0" class="w-2 h-2 rounded-full bg-pink-500"></div>
+                    <div id="dot1" class="w-2 h-2 rounded-full bg-gray-200"></div>
+                    <div id="dot2" class="w-2 h-2 rounded-full bg-gray-200"></div>
                 </div>
             </div>
         </div>
 
-        <div id="stage-memories" class="hidden w-full max-w-md flex flex-col items-center space-y-6 pb-10">
-            <h2 class="text-2xl font-bold text-pink-600 italic">📷 Our Memories</h2>
-            <video id="memoryVideo" controls class="w-full rounded-2xl shadow-lg border-4 border-white">
-                <source src="birthday_video.mp4" type="video/mp4">
-            </video>
-            <div class="grid grid-cols-1 gap-4 w-full">
-                <img src="photo1.jpg" class="rounded-xl shadow-md border-4 border-white transform rotate-1">
-                <img src="photo2.jpg" class="rounded-xl shadow-md border-4 border-white transform -rotate-1">
-                <img src="photo3.jpg" class="rounded-xl shadow-md border-4 border-white transform rotate-1">
+        <div id="stage-party" class="hidden w-full flex flex-col items-center">
+            <h2 id="party-title" class="text-3xl font-bold text-pink-600 mb-6">Let's Celebrate! 🥳</h2>
+            <div id="light-row" class="flex gap-2 h-6 mb-12"></div>
+            <button id="partyBtn" onclick="advanceParty()" class="bg-yellow-400 text-gray-900 px-10 py-3 rounded-full font-bold shadow-xl z-50">💡 Turn On the Lights</button>
+            <div id="banner-area" class="mt-12 flex flex-wrap justify-center gap-1"></div>
+            <div id="cake" class="cake mt-12">
+                <div class="candle"><div class="flame"></div></div>
+                <div class="cake-layer base"></div>
+                <div class="cake-layer mid"></div>
+                <div class="cake-layer top"></div>
             </div>
-            <p class="text-xl text-pink-600 font-bold text-center">💕 Forever Yours — [Name] 💕</p>
         </div>
 
+        <div id="stage-letter" class="hidden w-full max-w-sm flex flex-col items-center animate__animated animate__fadeIn">
+            <h2 class="text-2xl font-bold text-pink-600 mb-6">💌 A Message From My Heart</h2>
+            <div class="relative w-full h-96 bg-white rounded-[2.5rem] shadow-2xl overflow-hidden border-4 border-white">
+                <div id="curt-l" class="curtain absolute inset-y-0 left-0 w-1/2"></div>
+                <div id="curt-r" class="curtain absolute inset-y-0 right-0 w-1/2"></div>
+                <div class="p-8 h-full overflow-y-auto text-gray-700 italic text-sm leading-relaxed">
+                    <p class="font-bold text-pink-600 text-lg mb-4">Dearest Madam Jiii,</p>
+                    <p>Enter your heartfelt message here. Make it special!</p>
+                    <p class="mt-8 font-bold text-right text-pink-500">— [Your Name]</p>
+                </div>
+            </div>
+            <button id="openBtn" onclick="openCurtains()" class="mt-4 text-pink-500 font-bold animate-bounce underline">✨ Click to Open ✨</button>
+            <button id="memBtn" onclick="toMemories()" class="hidden mt-10 bg-[#f02e65] text-white px-10 py-3 rounded-full font-bold shadow-lg">📷 View Our Memories</button>
+        </div>
+
+        <div id="stage-memories" class="hidden w-full max-w-4xl flex flex-col items-center space-y-12 pb-20 animate__animated animate__fadeInRight">
+            <h2 class="text-4xl font-bold text-pink-600 italic">📷 Our Beautiful Memories</h2>
+            <div class="w-full max-w-2xl px-4">
+                <div class="bg-white p-4 shadow-2xl rounded-3xl transform rotate-1">
+                    <video id="memoryVideo" controls class="w-full rounded-2xl">
+                        <source src="birthday_video.mp4" type="video/mp4">
+                    </video>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 w-full px-4">
+                <div class="bg-white p-3 shadow-xl transform rotate-2"><img src="photo1.jpg" class="rounded w-full h-64"></div>
+                <div class="bg-white p-3 shadow-xl transform -rotate-3"><img src="photo2.jpg" class="rounded w-full h-64"></div>
+                <div class="bg-white p-3 shadow-xl transform rotate-1"><img src="photo3.jpg" class="rounded w-full h-64"></div>
+            </div>
+            <p class="text-3xl text-pink-600 font-bold">💕 Forever Yours — [Your Name] 💕</p>
+        </div>
     </div>
 
     <audio id="player" src="music.mp3" loop></audio>
 
     <script>
-        // Set your date here: (Year, Month Index (Jan=0), Day, Hour, Minute)
-        const birthdayDate = new Date(2026, 0, 19, 0, 0, 0).getTime();
+        // --- SET BIRTHDAY DATE HERE (Year, Month Index 0-11, Day, Hour, Minute) ---
+        const birthdayDate = new Date(2026, 0, 20, 0, 0, 0).getTime();
 
         const timer = setInterval(function() {
             const now = new Date().getTime();
             const distance = birthdayDate - now;
-            
-            document.getElementById("days").innerText = Math.floor(distance / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
-            document.getElementById("hours").innerText = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
-            document.getElementById("mins").innerText = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
-            document.getElementById("secs").innerText = Math.floor((distance % (1000 * 60)) / 1000).toString().padStart(2, '0');
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const mins = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const secs = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerText = days.toString().padStart(2, '0');
+            document.getElementById("hours").innerText = hours.toString().padStart(2, '0');
+            document.getElementById("mins").innerText = mins.toString().padStart(2, '0');
+            document.getElementById("secs").innerText = secs.toString().padStart(2, '0');
 
             if (distance < 0) {
                 clearInterval(timer);
-                document.getElementById("countdown-overlay").style.display = "none";
+                const ov = document.getElementById("countdown-overlay");
+                ov.classList.add('animate__animated', 'animate__fadeOut');
+                setTimeout(() => ov.style.display = "none", 1000);
             }
         }, 1000);
 
-        function toOnboarding() { document.getElementById('stage-start').classList.add('hidden'); document.getElementById('stage-onboarding').classList.remove('hidden'); }
-        function move(idx) { document.getElementById('track').style.transform = `translateX(-${idx * 33.333}%)`; }
-        function toParty() { 
-            // Simplified for brevity, same logic as before to transition to party/memories
-            document.getElementById('stage-onboarding').classList.add('hidden');
-            document.getElementById('stage-memories').classList.remove('hidden');
-            document.getElementById('player').play();
-        }
-
-        // Falling hearts
+        // --- PARTICLE EFFECT ---
         setInterval(() => {
             const h = document.createElement('div');
-            h.innerHTML = '❤️'; h.className = 'heart';
+            h.innerHTML = Math.random() > 0.5 ? '❤️' : '💖'; h.className = 'heart';
             h.style.left = Math.random() * 100 + 'vw';
             h.style.animationDuration = (Math.random() * 3 + 4) + 's';
-            document.body.appendChild(h);
-            setTimeout(() => h.remove(), 6000);
-        }, 500);
+            document.getElementById('particles').appendChild(h);
+            setTimeout(() => h.remove(), 7000);
+        }, 400);
+
+        // --- FLOW LOGIC ---
+        function toOnboarding() { document.getElementById('stage-start').classList.add('hidden'); document.getElementById('stage-onboarding').classList.remove('hidden'); }
+        function move(idx) {
+            document.getElementById('track').style.transform = `translateX(-${idx * 33.333}%)`;
+            for(let i=0; i<3; i++) document.getElementById(`dot${i}`).className = `w-2 h-2 rounded-full ${i===idx ? 'bg-pink-500' : 'bg-gray-200'}`;
+        }
+        function dodge() {
+            const btn = document.getElementById('noBtn'); btn.style.position = 'absolute';
+            btn.style.left = Math.random() * 80 + '%'; btn.style.top = Math.random() * 80 + '%';
+        }
+        function toParty() { document.getElementById('stage-onboarding').classList.add('hidden'); document.getElementById('stage-party').classList.remove('hidden'); }
+        
+        let pStep = 0;
+        function advanceParty() {
+            pStep++;
+            const btn = document.getElementById('partyBtn');
+            if(pStep === 1) { 
+                document.body.style.backgroundColor = "#2d1b4d"; document.getElementById('party-title').style.color = "white";
+                for(let i=0; i<12; i++) {
+                    setTimeout(() => {
+                        const l = document.createElement('div');
+                        l.className = "w-4 h-4 rounded-full shadow-[0_0_15px_white] animate__animated animate__flash animate__infinite";
+                        l.style.backgroundColor = ['#f43f5e', '#fbbf24', '#22c55e', '#3b82f6'][i%4];
+                        document.getElementById('light-row').appendChild(l);
+                    }, i * 200);
+                }
+                btn.innerText = "🎵 Play Music";
+            } else if(pStep === 2) {
+                document.getElementById('player').play(); btn.innerText = "🎨 Decorate";
+            } else if(pStep === 3) { 
+                "HAPPY BIRTHDAY".split('').forEach((c, i) => {
+                    const f = document.createElement('div');
+                    f.innerText = c === ' ' ? '\u00A0' : c; f.className = "flag";
+                    f.style.animationDelay = `${i * 0.1}s`;
+                    document.getElementById('banner-area').appendChild(f);
+                });
+                document.getElementById('cake').classList.add('show'); btn.innerText = "🎈 Fly The Balloons";
+            } else if(pStep === 4) {
+                for(let i=0; i<25; i++) {
+                    setTimeout(() => {
+                        const b = document.createElement('div'); b.className = "balloon"; b.innerText = "🎈";
+                        b.style.left = Math.random() * 90 + 'vw'; document.body.appendChild(b);
+                        setTimeout(() => b.remove(), 6000);
+                    }, i * 200);
+                }
+                btn.innerText = "Well, I have a message for you Madam Ji";
+            } else {
+                document.getElementById('stage-party').classList.add('hidden');
+                document.getElementById('stage-letter').classList.remove('hidden');
+                document.body.style.backgroundColor = "#ffe4e6";
+            }
+        }
+
+        function openCurtains() {
+            document.getElementById('curt-l').style.transform = "translateX(-100%)";
+            document.getElementById('curt-r').style.transform = "translateX(100%)";
+            document.getElementById('openBtn').classList.add('hidden');
+            document.getElementById('memBtn').classList.remove('hidden');
+        }
+
+        function toMemories() {
+            document.getElementById('stage-letter').classList.add('hidden');
+            document.getElementById('stage-memories').classList.remove('hidden');
+            document.getElementById('memoryVideo').play(); 
+            window.scrollTo(0,0);
+        }
     </script>
 </body>
 </html>
