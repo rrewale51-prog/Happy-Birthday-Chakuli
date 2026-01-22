@@ -49,6 +49,7 @@
         .flame { position: absolute; width: 12px; height: 18px; background: #f97316; border-radius: 50% 50% 20% 20%; top: -15px; left: -2px; animation: flicker 0.1s infinite alternate; box-shadow: 0 0 10px #f97316; }
         @keyframes flicker { from { transform: scale(1); } to { transform: scale(1.15); } }
         
+        /* --- BANNER --- */
         .flag { display: inline-block; animation: sway 3s ease-in-out infinite alternate; background: #f02e65; color: white; padding: 6px 10px; border-radius: 0 0 8px 8px; margin: 2px; font-weight: bold; }
         @keyframes sway { from { transform: rotate(-5deg); } to { transform: rotate(5deg); } }
 
@@ -121,7 +122,7 @@
         </div>
 
         <div id="stage-letter" class="hidden w-full max-w-sm flex flex-col items-center animate__animated animate__fadeIn">
-            <h2 class="text-2xl font-bold text-pink-600 mb-6 italic">A Shared Journey Till Now</h2>
+            <h2 class="text-2xl font-bold text-pink-600 mb-6 italic">Our Journey Till Now</h2>
             <div class="relative w-full h-[500px] bg-white rounded-[2.5rem] shadow-2xl overflow-hidden border-4 border-white">
                 <div id="curt-l" class="curtain absolute inset-y-0 left-0 w-1/2"></div>
                 <div id="curt-r" class="curtain absolute inset-y-0 right-0 w-1/2"></div>
@@ -148,7 +149,7 @@
                     <p class="mb-4">Even when you were exhausted, you didn't hesitate to say, <b>"Chal Mathat Jauya."</b> 📿 Reaching Swami’s Math late that night was a blessing. I’ve made a promise to myself: whenever you are going through a tough phase, I will revisit the places where we shared our strongest connection to pray for you. That is my guarantee to you. 🚩🙏</p>
 
                     <h3 class="text-lg font-bold text-pink-500 mt-6 mb-2">✨ No One Replaces You</h3>
-                    <p class="mb-4">You are irreplaceable, not today, not ever. No matter who enters my life, no one feels like you. These are the years where we become who we are meant to be. <b>Just be careful who you change into.</b> 🦋 Distance comes in miles and in hearts, but I believe our bond makes distance meaningless. If we ever drift, just look back at our "old little memories" and give me a call. I can lose anything, but I don’t ever want to lose a person like you. 🚫👤</p>
+                    <p class="mb-4">You are irreplaceable - not today, not ever. No matter who enters my life, no one feels like you. These are the years where we become who we are meant to be. <b>Just be careful who you change into.</b> 🦋 Distance comes in miles and in hearts, but I believe our bond makes distance meaningless. If we ever drift, just look back at our "old little memories" and give me a call. I can lose anything, but I don’t ever want to lose a person like you. 🚫👤</p>
 
                     <hr class="my-6 border-pink-100">
 
@@ -180,7 +181,6 @@
 
         <div id="stage-memories" class="hidden w-full max-w-4xl flex flex-col items-center space-y-12 pb-20 animate__animated animate__fadeInRight">
             <h2 class="text-3xl font-bold text-pink-600 italic">📷 Our Beautiful Memories</h2>
-            
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 w-full px-4">
                 <img src="photo1.jpg" class="bg-white p-3 shadow-xl transform rotate-2 rounded-lg w-full">
                 <img src="photo2.jpg" class="bg-white p-3 shadow-xl transform -rotate-3 rounded-lg w-full">
@@ -193,7 +193,7 @@
     <audio id="player" src="music.mp3" loop></audio>
 
     <script>
-        const birthdayDate = new Date(2026, 0, 20, 0, 0, 0).getTime();
+        const birthdayDate = new Date(2026, 0, 19, 0, 0, 0).getTime();
         setInterval(function() {
             const now = new Date().getTime();
             const distance = birthdayDate - now;
@@ -251,7 +251,13 @@
             document.getElementById('scroll-hint').style.opacity = "1";
         }
         function hideHint() { document.getElementById('scroll-hint').style.opacity = "0"; }
-        function toMemories() { document.getElementById('stage-letter').classList.add('hidden'); document.getElementById('stage-memories').classList.remove('hidden'); window.scrollTo(0,0); }
+        
+        // Updated: Removed video play command
+        function toMemories() { 
+            document.getElementById('stage-letter').classList.add('hidden'); 
+            document.getElementById('stage-memories').classList.remove('hidden'); 
+            window.scrollTo(0,0); 
+        }
 
         setInterval(() => {
             const h = document.createElement('div'); h.innerHTML = '❤️'; h.className = 'heart';
