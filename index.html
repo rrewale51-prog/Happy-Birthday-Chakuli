@@ -16,7 +16,6 @@
         #countdown-overlay { position: fixed; inset: 0; background: radial-gradient(circle, #ffafbd 0%, #ffc3a0 100%); z-index: 1000; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 1rem; }
         .glass-timer { background: rgba(255, 255, 255, 0.25); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); padding: 2rem; border-radius: 2rem; box-shadow: 0 8px 32px 0 rgba(240, 46, 101, 0.37); text-align: center; border: 2px solid rgba(255, 255, 255, 0.5); width: 100%; max-width: 450px; }
         
-        /* Flexbox for the timer units to ensure they fit on one line on most phones */
         .timer-container { display: flex; justify-content: center; gap: 0.5rem; flex-wrap: nowrap; }
         .timer-unit { display: flex; flex-direction: column; align-items: center; background: white; padding: 0.75rem 0.5rem; border-radius: 1rem; flex: 1; min-width: 65px; box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
         .timer-num { font-size: 1.75rem; font-weight: 800; background: linear-gradient(to bottom, #f02e65, #ff7eb3); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1; }
@@ -50,7 +49,6 @@
         .flame { position: absolute; width: 12px; height: 18px; background: #f97316; border-radius: 50% 50% 20% 20%; top: -15px; left: -2px; animation: flicker 0.1s infinite alternate; box-shadow: 0 0 10px #f97316; }
         @keyframes flicker { from { transform: scale(1); } to { transform: scale(1.15); } }
         
-        /* --- BANNER --- */
         .flag { display: inline-block; animation: sway 3s ease-in-out infinite alternate; background: #f02e65; color: white; padding: 6px 10px; border-radius: 0 0 8px 8px; margin: 2px; font-weight: bold; }
         @keyframes sway { from { transform: rotate(-5deg); } to { transform: rotate(5deg); } }
 
@@ -182,9 +180,7 @@
 
         <div id="stage-memories" class="hidden w-full max-w-4xl flex flex-col items-center space-y-12 pb-20 animate__animated animate__fadeInRight">
             <h2 class="text-3xl font-bold text-pink-600 italic">📷 Our Beautiful Memories</h2>
-            <div class="bg-white p-4 shadow-2xl rounded-3xl transform rotate-1 w-full max-w-2xl">
-                <video id="memoryVideo" controls class="w-full rounded-2xl"><source src="birthday_video.mp4" type="video/mp4"></video>
-            </div>
+            
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 w-full px-4">
                 <img src="photo1.jpg" class="bg-white p-3 shadow-xl transform rotate-2 rounded-lg w-full">
                 <img src="photo2.jpg" class="bg-white p-3 shadow-xl transform -rotate-3 rounded-lg w-full">
@@ -255,7 +251,7 @@
             document.getElementById('scroll-hint').style.opacity = "1";
         }
         function hideHint() { document.getElementById('scroll-hint').style.opacity = "0"; }
-        function toMemories() { document.getElementById('stage-letter').classList.add('hidden'); document.getElementById('stage-memories').classList.remove('hidden'); document.getElementById('memoryVideo').play(); window.scrollTo(0,0); }
+        function toMemories() { document.getElementById('stage-letter').classList.add('hidden'); document.getElementById('stage-memories').classList.remove('hidden'); window.scrollTo(0,0); }
 
         setInterval(() => {
             const h = document.createElement('div'); h.innerHTML = '❤️'; h.className = 'heart';
