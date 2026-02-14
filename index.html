@@ -61,6 +61,25 @@
 </head>
 <body>
 
+    <script>
+        (function() {
+            const secret = "Kaakan"; 
+            let authenticated = false;
+            while (!authenticated) {
+                let input = prompt("Enter the secret code to unlock your birthday surprise:\n\nHint: Let there be a line of your name on my palm for lifetimes");
+                if (input === secret) {
+                    authenticated = true;
+                } else if (input === null) {
+                    // This handles if the user clicks "Cancel"
+                    document.documentElement.innerHTML = "<body style='background:#ffe4e6; display:flex; justify-content:center; align-items:center; height:100vh; font-family:sans-serif; text-align:center;'><div><h1>🔒 Access Locked.</h1><p>Refresh to try again.</p></div></body>";
+                    return;
+                } else {
+                    alert("Incorrect code. Think about our first interaction!");
+                }
+            }
+        })();
+    </script>
+
     <div id="countdown-overlay">
         <div class="glass-timer">
             <h2 class="text-xl md:text-2xl font-bold text-white mb-6">Something Special Unlocks In...</h2>
@@ -252,7 +271,6 @@
         }
         function hideHint() { document.getElementById('scroll-hint').style.opacity = "0"; }
         
-        // Updated: Removed video play command
         function toMemories() { 
             document.getElementById('stage-letter').classList.add('hidden'); 
             document.getElementById('stage-memories').classList.remove('hidden'); 
